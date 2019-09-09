@@ -8,5 +8,11 @@
 		"psr-4": {
 			"Internet\\InterDB\\": "src/"
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "git",
+			"url": "https://git.doctor-internet.dev/internet/php-intervalid.git"
+		}
+	]
 }
