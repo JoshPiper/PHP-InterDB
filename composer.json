@@ -1,0 +1,11 @@
+{
+	"name": "internet/interdb",
+	"require": {
+		"ext-pdo": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"Internet\\InterDB\\": "src/"
+		}
+	}
+}
