@@ -1,5 +1,6 @@
 {
-	"name": "internet/interdb",
+	"name": "Internet/InterDB",
+	"description": "A small library for handling PDO DB connections.",
 	"require": {
 		"ext-pdo": "*"
 	},
