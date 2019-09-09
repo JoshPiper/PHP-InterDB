@@ -1,0 +1,37 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "b7e41a6a2067d82a5820fc632de1c8ff",
+    "packages": [
+        {
+            "name": "internet/intervalid",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.doctor-internet.dev/internet/php-intervalid.git",
+                "reference": "36d72309e8420a17132134483bc3d3476b306de8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Internet\\InterValid\\": "src/"
+                }
+            },
+            "description": "A small library for handling input validation.",
+            "time": "2019-09-09T11:49:10+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "ext-pdo": "*"
+    },
+    "platform-dev": []
+}
