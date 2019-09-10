@@ -6,7 +6,7 @@ use Internet\InterValid\EnvValidator;
 /**
  * Handles caching of and access to DB objects, automatically loaded from .env file.
  */
-Class EnvHandler extends DBHandler {
+Class EnvHandler extends Handler {
 	public function __construct(){
 		$ev = new EnvValidator();
 		$conf = [];
