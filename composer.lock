@@ -8,11 +8,15 @@
     "packages": [
         {
             "name": "internet/intervalid",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://git.doctor-internet.dev/internet/php-intervalid.git",
-                "reference": "36d72309e8420a17132134483bc3d3476b306de8"
+                "reference": "9477c0dfc56a5ec8bd6bc5436fc167f4cd0c6cd5"
+            },
+            "require-dev": {
+                "php": "^7.2",
+                "phpunit/phpunit": "8"
             },
             "type": "library",
             "autoload": {
@@ -21,7 +25,7 @@
                 }
             },
             "description": "A small library for handling input validation.",
-            "time": "2019-09-09T11:49:10+00:00"
+            "time": "2019-09-09T18:42:58+00:00"
         }
     ],
     "packages-dev": [],
