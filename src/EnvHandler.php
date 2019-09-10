@@ -1,7 +1,7 @@
 <?php
 
-namespace Bolt\InterDB;
-use Bolt\Validation\EnvValidator;
+namespace Internet\InterDB;
+use Internet\InterValid\EnvValidator;
 
 /**
  * Handles caching of and access to DB objects, automatically loaded from .env file.
