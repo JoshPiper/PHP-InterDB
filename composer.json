@@ -5,6 +5,13 @@
 		"ext-pdo": "*",
 		"internet/intervalid": "^1.0"
 	},
+	"authors": [
+		{
+			"name": "John Internet",
+			"email": "jonjon1234.github@gmail.com"
+		}
+	],
+	"license": "MIT",
 	"autoload": {
 		"psr-4": {
 			"Internet\\InterDB\\": "src/"
