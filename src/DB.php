@@ -16,7 +16,7 @@ class DB {
 
 	/**
 	 * InterDB constructor.
-	 * @param array $settings Array of settings to pass.
+	 * @param (string|int)[string] $settings Array of settings to pass.
 	 */
 	public function __construct($settings){
 		$this->settings = array_replace($this->settings, $settings);
