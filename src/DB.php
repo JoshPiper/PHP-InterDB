@@ -164,7 +164,7 @@ class DB {
 	 */
 	public function count($t, $w = false, $a = []){
 		$w = $w ? "WHERE {$w}" : '';
-		return $this->run("SELECT COUNT(*) count FROM {$t} {$w}", $a)->fetch(PDO::FETCH_ASSOC)['count'];
+		return intval($this->selecto("SELECT COUNT(*) count FROM {$t} {$w}", $a)['count']);
 	}
 
 	/** Drop a given table.
