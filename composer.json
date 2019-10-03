@@ -20,7 +20,7 @@
 	"repositories": [
 		{
 			"type": "git",
-			"url": "https://git.doctor-internet.dev/internet/php-intervalid.git"
+			"url": "https://git.doctor-internet.dev/interphp/intervalid.git"
 		}
 	]
 }
