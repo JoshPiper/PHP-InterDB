@@ -3,7 +3,8 @@
 	"description": "A small library for handling PDO DB connections.",
 	"require": {
 		"ext-pdo": "*",
-		"internet/intervalid": "^1.0"
+		"internet/intervalid": "^1.0",
+		"php": "^7.0"
 	},
 	"authors": [
 		{
