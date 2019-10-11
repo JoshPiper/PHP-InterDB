@@ -4,9 +4,9 @@ namespace Internet\InterDB\Drivers;
 
 use PDO;
 use PDOStatement;
+use PDOException;
 use Internet\InterDB\Exceptions\SQLException;
 use Internet\InterDB\Interfaces\QueryableInterface;
-use Internet\InterDB\Exceptions\DSNCreationException;
 use const Internet\InterDB\Constants\FETCH_ASSOC;
 
 abstract class AbstractPDODriver implements QueryableInterface {
@@ -19,9 +19,15 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 * @param $query
 	 * @param array $args
 	 * @return PDOStatement
+	 * @throws SQLException
 	 */
 	protected function prepare($query, $args = []){
-		$stmt = $this->connection->prepare($query);
+		try {
+			$stmt = $this->connection->prepare($query);
+		} catch (PDOException $exception){
+			throw new SQLException($exception->getMessage(), $exception->getCode(), $exception);
+		}
+
 		foreach ($args as $name => $arg){
 			$type = PDO::PARAM_STR;
 			if (is_numeric($arg)){

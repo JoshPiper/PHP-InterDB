@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use PHPUnit\Framework\TestCase;
+use Internet\InterDB\Exceptions\SQLException;
 
 final class SQLiteDBTest extends TestCase {
 	/** @var string Test DB file path. */
@@ -24,5 +25,10 @@ final class SQLiteDBTest extends TestCase {
 
 	public function testBasic(): void{
 		$this->assertEmpty($this->driver->select_all('SELECT * FROM sqlite_master'));
+	}
+
+	public function testError(): void{
+		$this->expectException(SQLException::class);
+		$this->driver->query("suck my balls");
 	}
 }
