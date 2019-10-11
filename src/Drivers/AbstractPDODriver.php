@@ -101,10 +101,11 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	public function selector(string $query, array $args = [], int $mode = FETCH_ASSOC): iterable{
 		$stmt = $this->execute($query, $args);
 
-		do {
-			$row = $stmt->fetch($mode);
+		$row = $stmt->fetch($mode);
+		while ($row){
 			yield $row;
-		} while ($row);
+			$row = $stmt->fetch($mode);
+		}
 	}
 
 	/** Count the number of rows in a table that match a given where clause.
