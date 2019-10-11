@@ -61,15 +61,15 @@ final class SQLiteDBTest extends TestCase {
 		$this->assertEquals(1, self::$driver->count('test'));
 		$this->assertEquals(0, self::$driver->count('test', 'name="balls"'));
 
-		$this->assertEquals(1, self::$driver->count('test', 'name="?"', ['hi']));
-		$this->assertEquals(0, self::$driver->count('test', 'name="?"', ['balls']));
+		$this->assertEquals(1, self::$driver->count('test', 'name=?', ['hi']));
+		$this->assertEquals(0, self::$driver->count('test', 'name=?', ['balls']));
 	}
 
 	public function testAny(): void{
 		$this->assertTrue(self::$driver->any('test'));
 		$this->assertFalse(self::$driver->any('test', 'name="balls"'));
 
-		$this->assertTrue(self::$driver->any('test', 'name="?"', ['hi']));
-		$this->assertFalse(self::$driver->any('test', 'name="?"', ['balls']));
+		$this->assertTrue(self::$driver->any('test', 'name=?', ['hi']));
+		$this->assertFalse(self::$driver->any('test', 'name=?', ['balls']));
 	}
 }
