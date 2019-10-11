@@ -52,10 +52,7 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 */
 	public function execute($query, $args = []){
 		$stmt = $this->prepare($query, $args);
-		$suc = $stmt->execute();
-		if (!$suc){
-			throw new SQLException($stmt->errorInfo()[2], $stmt->errorInfo()[1]);
-		}
+		$stmt->execute();
 		return $stmt;
 	}
 
