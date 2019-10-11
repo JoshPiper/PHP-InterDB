@@ -7,9 +7,12 @@ namespace Internet\InterDB\Drivers;
 use PDO;
 use PDOException;
 use Internet\InterDB\Exceptions\SQLException;
+use Internet\InterDB\Traits\SettingsAccessorTrait;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
+	use SettingsAccessorTrait;
+
 	public function __construct($settings = [], ...$extra){
 		try {
 			$this->connection = new PDO($this->buildDSN($settings));
@@ -47,41 +50,5 @@ abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
 	 * @return string
 	 */
 	abstract function buildDSN(array $settings): string;
-
-	/** Remap an array member.
-	 * @param $settings
-	 * @param $from
-	 * @param $to
-	 */
-	static function remap(&$settings, $from, $to){
-		if (isset($settings[$from])){
-			$settings[$to] = $settings[$from];
-			if ($from !== $to){
-				unset($settings[$from]);
-			}
-		}
-	}
-
-	/** Check for a required setting.
-	 * @param $settings
-	 * @param $key
-	 * @throws DSNCreationException
-	 */
-	static function required($settings, $key){
-		if (!isset($settings[$key])){
-			throw new DSNCreationException("Missing Setting Key ${key}.");
-		}
-	}
-
-	/** Add a default setting.
-	 * @param $settings
-	 * @param $key
-	 * @param $default
-	 */
-	static function optional(&$settings, $key, $default){
-		if (!isset($settings[$key])){
-			$settings[$key] = $default;
-		}
-	}
 
 }
