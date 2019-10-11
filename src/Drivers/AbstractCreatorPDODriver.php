@@ -4,6 +4,7 @@
 namespace Internet\InterDB\Drivers;
 
 
+use PDO;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
