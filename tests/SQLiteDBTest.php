@@ -30,6 +30,12 @@ final class SQLiteDBTest extends TestCase {
 		self::$driver = null;
 	}
 
+	public function testSetup(): void{
+		$this->expectNotToPerformAssertions();
+		$driver = new SQLiteDriver(['path' => ':memory:']);
+		$driver = null;
+	}
+
 	public function testBasic(): void{
 		$this->assertEmpty(self::$driver->select_all('SELECT * FROM sqlite_master'));
 	}
