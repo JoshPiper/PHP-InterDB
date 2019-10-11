@@ -31,9 +31,9 @@ final class SQLiteDBTest extends TestCase {
 	}
 
 	public function testSetup(): void{
-		$this->expectNotToPerformAssertions();
 		$driver = new SQLiteDriver(['path' => ':memory:']);
-		$driver = null;
+		$this->assertIsString($driver->buildDSN(['path' => ':memory:']));
+		unset($driver);
 	}
 
 	public function testBasic(): void{
