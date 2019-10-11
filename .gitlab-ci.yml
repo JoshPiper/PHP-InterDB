@@ -9,6 +9,7 @@ stages:
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
+  MYSQL_ROOT_PASSWORD: test_db_password
 
 before_script:
   - apk update && apk add git unzip -yqq
@@ -26,8 +27,6 @@ before_script:
   stage: test
   services:
     - mariadb:latest
-  variables:
-    MYSQL_ROOT_PASSWORD: test_db_password
 
 test:php7.2:
   <<: *test
