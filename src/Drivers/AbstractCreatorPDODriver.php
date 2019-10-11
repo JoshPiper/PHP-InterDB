@@ -39,7 +39,7 @@ abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
 
 		foreach ($settings as $key => $value){
 			if (!is_numeric($key)){
-				$settings[$key] = "{$key}:{$value}";
+				$settings[$key] = "{$key}={$value}";
 			}
 		}
 		return $dsn . join(';', $settings);
