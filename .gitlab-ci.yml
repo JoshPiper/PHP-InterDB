@@ -23,6 +23,10 @@ before_script:
   script:
     - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html reports/coverage --testdox-html reports/test.html --colors=never --whitelist src/ tests
   stage: test
+  services:
+    - mariadb:latest
+  environment:
+    MYSQL_ROOT_PASSWORD: test_db_password
 
 test:php7.2:
   <<: *test
