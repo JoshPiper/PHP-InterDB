@@ -19,7 +19,8 @@ class DB {
 
 	/**
 	 * InterDB constructor.
-	 * @param (string|int)[string] $settings Array of settings to pass.
+	 * @param (string|int)[string]|QueryableInterface $settings Array of settings to pass.
+	 * @throws SQLException
 	 */
 	public function __construct($settings){
 		if (is_array($settings)){
