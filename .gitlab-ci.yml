@@ -24,10 +24,6 @@ before_script:
     - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html reports/coverage --testdox-html reports/test.html --colors=never --whitelist src/ tests
   stage: test
 
-test:php7.1:
-  image: php:7.1-alpine
-  <<: *test
-
 test:php7.2:
   <<: *test
 
