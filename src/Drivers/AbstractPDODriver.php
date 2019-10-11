@@ -25,7 +25,7 @@ abstract class AbstractPDODriver implements QueryableInterface {
 		try {
 			$stmt = $this->connection->prepare($query);
 		} catch (PDOException $exception){
-			throw new SQLException($exception->getMessage(), $exception->getCode(), $exception);
+			throw new SQLException($exception->getMessage());
 		}
 
 		foreach ($args as $name => $arg){
