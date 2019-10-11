@@ -6,6 +6,9 @@
 		"internet/intervalid": "^1.0",
 		"php": "^7.1"
 	},
+	"require-dev": {
+		"phpunit/phpunit": "^8.4"
+	},
 	"authors": [
 		{
 			"name": "John Internet",
@@ -16,7 +19,8 @@
 	"autoload": {
 		"psr-4": {
 			"Internet\\InterDB\\": "src/"
-		}
+		},
+		"files": ["src/Constants.php"]
 	},
 	"repositories": [
 		{
