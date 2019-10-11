@@ -2,33 +2,58 @@
 
 declare(strict_types=1);
 
+use Internet\InterDB\DB;
 use PHPUnit\Framework\TestCase;
+use Internet\InterDB\Drivers\SQLiteDriver;
 use Internet\InterDB\Exceptions\SQLException;
 
 final class SQLiteDBTest extends TestCase {
 	/** @var string Test DB file path. */
-	private $file;
-	/** @var \Internet\InterDB\Drivers\SQLiteDriver */
-	private $driver;
+	private static $file;
+	/** @var SQLiteDriver */
+	private static $driver;
+	/** @var DB */
+	private static $wrapper;
 
-	protected function setUp(): void{
-		$this->file = __DIR__ . '/test.sqlite';
-		$this->driver = new \Internet\InterDB\Drivers\SQLiteDriver(['path' => $this->file]);
+	public static function setUpBeforeClass(): void{
+		self::$file = __DIR__ . '/test.sqlite';
+		if (is_file(self::$file)){
+			unlink(self::$file);
+		}
+
+		self::$driver = new SQLiteDriver(['path' => self::$file]);
+		self::$wrapper = new DB(self::$driver);
 	}
 
-	protected function tearDown(): void{
-		unset($this->driver);
-		if (is_file($this->file)){
-			unlink($this->file);
-		}
+	public static function tearDownAfterClass(): void{
+		self::$wrapper = null;
+		self::$driver = null;
 	}
 
 	public function testBasic(): void{
-		$this->assertEmpty($this->driver->select_all('SELECT * FROM sqlite_master'));
+		$this->assertEmpty(self::$driver->select_all('SELECT * FROM sqlite_master'));
 	}
 
 	public function testError(): void{
 		$this->expectException(SQLException::class);
-		$this->driver->query("suck my balls");
+		self::$driver->query("suck my balls");
+	}
+
+	public function testTableCreation(): void{
+		self::$wrapper->table('test', ['name' => ['type' => 'Varchar']]);
+		$this->assertTrue(self::$driver->any('sqlite_master', 'type = "table" AND tbl_name = "test"'), 'no tables exist');
+	}
+
+	public function testInsert(): void{
+		$this->expectNotToPerformAssertions();
+		self::$driver->query('INSERT INTO test VALUES ("hi")');
+	}
+
+	public function testSelect(): void{
+		$this->assertEquals(['name' => 'hi'], self::$driver->select('SELECT * FROM test'));
+		$this->assertEquals([['name' => 'hi']], self::$driver->select_all('SELECT * FROM test'));
+
+		$gen = self::$driver->selector('SELECT * FROM test');
+		$this->assertCount(1, iterator_to_array($gen));
 	}
 }
