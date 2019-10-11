@@ -15,7 +15,6 @@ class MySQLDriver extends AbstractCreatorPDODriver {
 			unset($settings['host']);
 			unset($settings['port']);
 		} else {
-			var_dump($settings);
 			self::required($settings, 'host');
 			self::optional($settings, 'port', 3306);
 		}

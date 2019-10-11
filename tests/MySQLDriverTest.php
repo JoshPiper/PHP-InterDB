@@ -19,7 +19,7 @@ class MySQLDriverTest extends TestCase {
 			unlink(self::$file);
 		}
 
-		self::$driver = new MySQLDriver(['path' => self::$file]);
+		self::$driver = new MySQLDriver(['host' => 'mariadb'], 'root', 'test_db_password');
 		self::$wrapper = new DB(self::$driver);
 	}
 
