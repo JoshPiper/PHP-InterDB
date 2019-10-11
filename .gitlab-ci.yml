@@ -1,0 +1,40 @@
+image: php:7.2-alpine
+cache:
+  paths:
+    - vendor/
+    - composer.phar
+
+stages:
+  - test
+
+variables:
+  COMPOSER_ALLOW_SUPERUSER: 1
+
+before_script:
+  - apk update && apk add git unzip -yqq
+  - curl -sS https://getcomposer.org/installer | php
+  - php composer.phar install --no-ansi
+
+.test: &test
+  artifacts:
+    paths:
+      - reports
+    when: always
+  script:
+    - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html reports/coverage --testdox-html reports/test.html --colors=never --whitelist src/ tests
+  stage: test
+
+test:php7.1:
+  image: php:7.1-alpine
+  <<: *test
+
+test:php7.2:
+  <<: *test
+
+test:php7.3:
+  image: php:7.3-alpine
+  <<: *test
+
+test:php7.4:
+  image: php:7.4-rc-alpine
+  <<: *test
