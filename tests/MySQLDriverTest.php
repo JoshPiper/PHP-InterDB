@@ -14,12 +14,7 @@ class MySQLDriverTest extends TestCase {
 	private static $wrapper;
 
 	public static function setUpBeforeClass(): void{
-		self::$file = __DIR__ . '/test.sqlite';
-		if (is_file(self::$file)){
-			unlink(self::$file);
-		}
-
-		self::$driver = new MySQLDriver(['host' => 'mariadb'], 'root', 'test_db_password');
+		self::$driver = new MySQLDriver(['host' => 'mysql', 'db' => 'testdb'], 'root', 'test_db_password');
 		self::$wrapper = new DB(self::$driver);
 	}
 
