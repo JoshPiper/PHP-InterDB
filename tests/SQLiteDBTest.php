@@ -71,5 +71,8 @@ final class SQLiteDBTest extends TestCase {
 
 		$this->assertTrue(self::$driver->any('test', 'name=?', ['hi']));
 		$this->assertFalse(self::$driver->any('test', 'name=?', ['balls']));
+
+		$this->assertTrue(self::$driver->any('test', '?', [true]));
+		$this->assertTrue(self::$driver->any('test', 'LENGTH(name) > ?', [0]));
 	}
 }
