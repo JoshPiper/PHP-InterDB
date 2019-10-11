@@ -65,7 +65,7 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 * @return int
 	 */
 	public function query(string $query, array $args = []): int{
-		return $this->prepare($query, $args)->rowCount();
+		return $this->execute($query, $args)->rowCount();
 	}
 
 	/** Select a single row from the data source and return it.
