@@ -5,11 +5,21 @@ namespace Internet\InterDB\Drivers;
 
 
 use PDO;
+use PDOException;
+use Internet\InterDB\Exceptions\SQLException;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
 	public function __construct($settings = [], ...$extra){
-		$this->connection = new PDO($this->buildDSN($settings));
+		try {
+			$this->connection = new PDO($this->buildDSN($settings));
+		} catch (PDOException $exception){
+			$code = $exception->getCode();
+			switch ($code){
+				case 2002: throw new SQLException('Failed to connect: connection refused.', $code);
+				default: throw new SQLException('Failed to connect: ' . $exception->getMessage(), $code);
+			}
+		}
 		$this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 
