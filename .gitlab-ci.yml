@@ -20,7 +20,7 @@ wait:
   stage: wait
   script:
     - echo Waiting for SQL service.
-    - await-ready.sh
+    - ./await-ready.sh
 
 .test: &test
   artifacts:
