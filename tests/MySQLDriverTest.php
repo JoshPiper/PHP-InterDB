@@ -36,8 +36,8 @@ class MySQLDriverTest extends TestCase {
 	}
 
 	public function testBuildDSN(){
-		$driver = new MySQLDriver(['host' => 'mysql'], 'root', 'test_db_password');
-		$this->assertIsString($driver->buildDSN(['host' => 'mariadb']));
+		$driver = new MySQLDriver(['host' => 'mysql'], 'ci', 'ci');
+		$this->assertIsString($driver->buildDSN(['host' => 'mysql']));
 		unset($driver);
 	}
 }
