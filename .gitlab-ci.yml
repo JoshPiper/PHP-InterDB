@@ -9,7 +9,7 @@ stages:
   - test
 
 services:
-  - mysql:latest
+  - mariadb:latest
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
