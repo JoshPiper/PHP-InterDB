@@ -22,6 +22,7 @@ wait:
     - echo Waiting for SQL service.
     - chmod +x ./await-ready.sh && ./await-ready.sh
   allow_failure: true
+  cache: {}
 
 .test: &test
   artifacts:
