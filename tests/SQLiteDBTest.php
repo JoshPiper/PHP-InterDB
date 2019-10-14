@@ -21,8 +21,24 @@ final class SQLiteDBTest extends TestCase {
 			unlink(self::$file);
 		}
 
-		self::$driver = new SQLiteDriver(['path' => self::$file]);
-		self::$wrapper = new DB(self::$driver);
+		$retries = 10;
+		$cancel = false;
+		do {
+			try {
+				self::$driver = new SQLiteDriver(['path' => self::$file]);
+				self::$wrapper = new DB(self::$driver);
+			} catch (SQLException $exception){
+				$retries--;
+				if ($retries < 0){
+					$cancel = true;
+					echo "Failed to connect: breaking." . PHP_EOL;
+				} else {
+					echo "Failed to connect: " . $exception->getMessage() . PHP_EOL;
+					sleep(2);
+				}
+			}
+		} while (!self::$driver && !$cancel);
+
 	}
 
 	public static function tearDownAfterClass(): void{
