@@ -24,7 +24,7 @@ variables:
     - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html reports/coverage --testdox-html reports/test.html --colors=never --whitelist src/ tests
   stage: test
   before_script:
-    - apk update && apk add git unzip -yqq
+    - apk update && apk add git unzip -q && apk add mysql-client -q
     - docker-php-ext-install pdo_mysql
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-ansi
