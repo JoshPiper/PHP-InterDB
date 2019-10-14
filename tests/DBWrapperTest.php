@@ -16,7 +16,7 @@ final class DBWrapperTest extends TestCase {
 	private static $driver;
 
 	public static function setUpBeforeClass(): void{
-		self::$driver = new MySQLDriver(['host' => 'mysql', 'db' => 'information_schema', 'port' => 3306], 'ci', 'ci');
+		self::$driver = new MySQLDriver(['host' => 'mysql', 'db' => 'ci', 'port' => 3306], 'ci', 'ci');
 		self::$wrapper = new DB(self::$driver);
 	}
 
