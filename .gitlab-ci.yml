@@ -1,5 +1,6 @@
 image: php:7.2-alpine
 cache:
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - vendor/
     - composer.phar
