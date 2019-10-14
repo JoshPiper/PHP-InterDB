@@ -14,7 +14,7 @@ class MySQLDriverTest extends TestCase {
 	private static $wrapper;
 
 	public static function setUpBeforeClass(): void{
-		self::$driver = new MySQLDriver(['host' => 'mysql', 'db' => 'testdb'], 'root', 'test_db_password');
+		self::$driver = new MySQLDriver(['host' => 'mariadb', 'db' => 'testdb'], 'root', 'test_db_password');
 		self::$wrapper = new DB(self::$driver);
 	}
 
