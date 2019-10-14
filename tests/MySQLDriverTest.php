@@ -24,7 +24,7 @@ class MySQLDriverTest extends TestCase {
 		$cancel = false;
 		do {
 			try {
-				self::$driver = new MySQLDriver(['host' => 'mariadb', 'db' => 'testdb'], 'root', 'test_db_password');
+				self::$driver = new MySQLDriver(['host' => 'mariadb', 'db' => 'testdb', 'port' => 3306], 'tester', 'tester_password');
 				self::$wrapper = new DB(self::$driver);
 			} catch (SQLException $exception){
 				$retries--;
