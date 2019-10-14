@@ -6,7 +6,6 @@ cache:
     - composer.phar
 
 stages:
-  - wait
   - test
 
 services:
@@ -15,15 +14,6 @@ services:
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
   MYSQL_ROOT_PASSWORD: ci
-
-wait:
-  image: imega/mysql-client:latest
-  stage: wait
-  script:
-    - echo Waiting for SQL service.
-    - chmod +x ./await-ready.sh && ./await-ready.sh
-  allow_failure: true
-  cache: {}
 
 .test: &test
   artifacts:
@@ -38,6 +28,7 @@ wait:
     - docker-php-ext-install pdo_mysql
     - curl -sS https://getcomposer.org/installer | php
     - php composer.phar install --no-ansi
+    - chmod +x ./await-ready.sh && ./await-ready.sh
 
 test:php7.2:
   <<: *test
