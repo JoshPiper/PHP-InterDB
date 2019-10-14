@@ -15,13 +15,7 @@ class MySQLDriverTest extends TestCase {
 	private static $wrapper;
 
 	public static function setUpBeforeClass(): void{
-		self::$file = __DIR__ . '/test.sqlite';
-		if (is_file(self::$file)){
-			unlink(self::$file);
-		}
-
 		$retries = 10;
-		$cancel = false;
 		do {
 			try {
 				self::$driver = new MySQLDriver(['host' => 'mariadb', 'db' => 'testdb', 'port' => 3306], 'tester', 'tester_password');
@@ -29,16 +23,13 @@ class MySQLDriverTest extends TestCase {
 			} catch (SQLException $exception){
 				$retries--;
 				if ($retries < 0){
-					$cancel = true;
 					echo "Failed to connect: breaking." . PHP_EOL;
 				} else {
 					echo "Failed to connect: " . $exception->getMessage() . PHP_EOL;
 					sleep(2);
 				}
 			}
-		} while (!self::$driver && !$cancel);
-
-
+		} while (!self::$driver && $retries >= 0);
 	}
 
 	public static function tearDownAfterClass(): void{
