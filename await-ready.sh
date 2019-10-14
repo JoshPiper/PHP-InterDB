@@ -16,5 +16,5 @@ if [ $error_count -eq 999 ]; then
 	echo "Successfully waited.";
 else
 	echo "Wait failed, expect other jobs to fail.";
-	exit 1
 fi
+exit 0
