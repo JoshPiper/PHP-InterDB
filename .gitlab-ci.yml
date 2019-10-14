@@ -14,6 +14,9 @@ services:
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
   MYSQL_ROOT_PASSWORD: ci
+  MYSQL_DATABASE: ci
+  MYSQL_USER: ci
+  MYSQL_PASSWORD: ci
 
 .test: &test
   artifacts:
