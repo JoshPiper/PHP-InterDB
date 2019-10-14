@@ -46,5 +46,6 @@ final class DBWrapperTest extends TestCase {
 			'namecol' => ['type' => 'varchar', 'length' => '50', 'default' => '"string"']
 		];
 		self::$wrapper->table('testtable', $cols, 'InnoDB');
+		$this->assertTrue(self::$wrapper->any('information_schema.tables', 'TABLE_NAME = ?', ['testtable']));
 	}
 }
