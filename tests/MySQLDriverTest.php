@@ -39,4 +39,14 @@ class MySQLDriverTest extends TestCase {
 		$this->assertIsString(self::$driver->buildDSN(['host' => 'mysql']));
 		$this->assertIsString(self::$driver->buildDSN(['socket' => '/var/socket/mysqld.sock']));
 	}
+
+	public function testDSNFailure(){
+		$this->expectException(SQLException::class);
+		$driver = new MySQLDriver();
+	}
+
+	public function testConnectionFailure(){
+		$this->expectException(SQLException::class);
+		$driver = new MySQLDriver(['host' => 'badhost']);
+	}
 }
