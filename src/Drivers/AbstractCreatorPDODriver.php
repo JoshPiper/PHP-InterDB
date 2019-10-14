@@ -16,7 +16,7 @@ abstract class AbstractCreatorPDODriver extends AbstractPDODriver {
 	public function __construct($settings = [], ...$extra){
 		var_dump($this->buildDSN($settings));
 		try {
-			$this->connection = new PDO($this->buildDSN($settings));
+			$this->connection = new PDO($this->buildDSN($settings), ...$extra);
 		} catch (PDOException $exception){
 			$code = $exception->getCode();
 			switch ($code){
