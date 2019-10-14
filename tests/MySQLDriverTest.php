@@ -16,7 +16,7 @@ class MySQLDriverTest extends TestCase {
 		$retries = 20;
 		do {
 			try {
-				self::$driver = new MySQLDriver(['host' => 'mariadb', 'db' => 'information_schema', 'port' => 3306], 'root', 'ci');
+				self::$driver = new MySQLDriver(['host' => 'mysql', 'db' => 'information_schema', 'port' => 3306], 'root', 'ci');
 				self::$wrapper = new DB(self::$driver);
 			} catch (SQLException $exception){
 				$retries--;
@@ -36,7 +36,7 @@ class MySQLDriverTest extends TestCase {
 	}
 
 	public function testBuildDSN(){
-		$driver = new MySQLDriver(['host' => 'mariadb'], 'root', 'test_db_password');
+		$driver = new MySQLDriver(['host' => 'mysql'], 'root', 'test_db_password');
 		$this->assertIsString($driver->buildDSN(['host' => 'mariadb']));
 		unset($driver);
 	}
