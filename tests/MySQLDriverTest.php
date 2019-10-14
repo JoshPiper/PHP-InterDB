@@ -5,6 +5,7 @@ use Internet\InterDB\DB;
 use Internet\InterDB\Drivers\MySQLDriver;
 use PHPUnit\Framework\TestCase;
 use Internet\InterDB\Exceptions\SQLException;
+use Internet\InterDB\Exceptions\DSNCreationException;
 
 class MySQLDriverTest extends TestCase {
 	/** @var MySQLDriver */
@@ -41,12 +42,17 @@ class MySQLDriverTest extends TestCase {
 	}
 
 	public function testDSNFailure(){
-		$this->expectException(SQLException::class);
+		$this->expectException(DSNCreationException::class);
 		$driver = new MySQLDriver();
 	}
 
 	public function testConnectionFailure(){
 		$this->expectException(SQLException::class);
 		$driver = new MySQLDriver(['host' => 'badhost']);
+	}
+
+	public function testBadUser(){
+		$this->expectException(SQLException::class);
+		$driver = new MySQLDriver(['host' => 'mysql'], 'baduser', 'notarealpassword');
 	}
 }
