@@ -12,9 +12,7 @@ services:
 
 variables:
   COMPOSER_ALLOW_SUPERUSER: 1
-  MYSQL_DATABASE: testdb
-  MYSQL_USER: tester
-  MYSQL_PASSWORD: tester_password
+  MYSQL_ROOT_PASSWORD: ci
 
 
 before_script:
