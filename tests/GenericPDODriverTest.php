@@ -14,7 +14,7 @@ final class GenericPDODriverTest extends TestCase {
 	}
 
 	public function testCreation(){
-		$this->expectNotToPerformAssertions();
 		$driver = new GenericPDODriver(self::$driver);
+		$this->assertFalse($driver->any('sqlite_master'));
 	}
 }
