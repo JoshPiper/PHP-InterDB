@@ -72,7 +72,6 @@ class DB {
 	 * @return Generator
 	 */
 	public function bulk_select($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		$stmt = $this->prep($q);
 		foreach ($a as $v){
 			if (!is_array($v)){
 				$v = [$v];
