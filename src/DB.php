@@ -40,7 +40,15 @@ class DB {
 	 */
 	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra=null){
 		$q = $this->run($q, $a);
-		$q->setFetchMode($mode, $extra);
+		try {
+			$q->setFetchMode($mode, $extra);
+		} catch (PDOException $exception){
+			if ($exception->getCode() === 'HY000'){
+				$q->setFetchMode($mode);
+			} else {
+				throw $exception;
+			}
+		}
 		return $q->fetchAll();
 	}
 
@@ -107,7 +115,15 @@ class DB {
 	 */
 	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra = null){
 		$q = $this->run($q, $a);
-		$q->setFetchMode($mode, $extra);
+		try {
+			$q->setFetchMode($mode, $extra);
+		} catch (PDOException $exception){
+			if ($exception->getCode() === 'HY000'){
+				$q->setFetchMode($mode);
+			} else {
+				throw $exception;
+			}
+		}
 		return $q->fetch();
 	}
 
