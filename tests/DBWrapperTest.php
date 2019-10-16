@@ -48,4 +48,44 @@ final class DBWrapperTest extends TestCase {
 		self::$wrapper->table('testtable', $cols, 'InnoDB');
 		$this->assertTrue(self::$wrapper->any('information_schema.tables', 'TABLE_NAME = ?', ['testtable']));
 	}
+
+	/**
+	 * @depends testColumns
+	 */
+	public function testInsert(): void{
+		$this->expectNotToPerformAssertions();
+		self::$wrapper->query("INSERT INTO testtable VALUES (DEFAULT, 'bigname'), (DEFAULT, 'notorious B.I.G')");
+	}
+
+	/**
+	 * @depends testInsert
+	 */
+	public function testSelectAll(): void{
+		$data = self::$wrapper->select("SELECT * FROM testtable");
+		$this->assertEquals([
+			['keycol' => 1, 'namecol' => 'bigname'],
+			['keycol' => 2, 'namecol' => 'notorious B.I.G'],
+		], $data);
+	}
+
+	/**
+	 * @depends testInsert
+	 */
+	public function testSelectOne(): void{
+		$data = self::$wrapper->selecto("SELECT * FROM testtable");
+		$this->assertEquals(['keycol' => 1, 'namecol' => 'bigname'], $data);
+	}
+
+	/**
+	 * @depends testInsert
+	 */
+	public function testSelectBulk(): void{
+		$generator = self::$wrapper->bulk_select("SELECT * FROM testtable WHERE keycol = ?", [1, 2]);
+		$data = iterator_to_array($generator);
+		$this->assertEquals([
+			['keycol' => 1, 'namecol' => 'bigname'],
+			['keycol' => 2, 'namecol' => 'notorious B.I.G'],
+		], $data);
+	}
+
 }
