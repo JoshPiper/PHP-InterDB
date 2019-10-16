@@ -38,8 +38,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return array Array of results.
 	 */
-	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		return $this->run($q, $a)->fetchAll($mode);
+	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra=null){
+		return $this->run($q, $a)->fetchAll($mode, $extra);
 	}
 
 	/** Run a query and return the executed statement.
@@ -103,8 +103,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return mixed
 	 */
-	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		return $this->run($q, $a)->fetch($mode);
+	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra = null){
+		return $this->run($q, $a)->fetch($mode, $extra);
 	}
 
 	/** Run a statement, but return the query rather than the data.
