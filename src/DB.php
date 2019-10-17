@@ -3,6 +3,9 @@
 namespace Internet\InterDB;
 use PDO, PDOStatement, PDOException;
 use Generator;
+use Internet\InterDB\Drivers\MySQLDriver;
+use Internet\InterDB\Exceptions\SQLException;
+use Internet\InterDB\Interfaces\QueryableInterface;
 
 class DB {
 	private $settings = [
@@ -16,19 +19,20 @@ class DB {
 
 	/**
 	 * InterDB constructor.
-	 * @param (string|int)[string] $settings Array of settings to pass.
+	 * @param (string|int)[string]|QueryableInterface $settings Array of settings to pass.
+	 * @throws SQLException
 	 */
 	public function __construct($settings){
-		$this->settings = array_replace($this->settings, $settings);
-		$this->connection = new PDO($this->getConnectionString(), $this->settings['username'], $this->settings['password'], [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
-	}
-
-	/**
-	 * Generate a PDO connection string for the given settings.
-	 * @return string The generated connection.
-	 */
-	private function getConnectionString(){
-		return "mysql:dbname={$this->settings['db']};host={$this->settings['host']};port={$this->settings['port']};charset=utf8mb4";
+		if (is_array($settings)){
+			$this->settings = array_replace($this->settings, $settings);
+			$user = $this->settings['username'];
+			unset($this->settings['username']);
+			$pass = $this->settings['password'];
+			unset($this->settings['password']);
+			$this->connection = new MySQLDriver($this->settings, $user, $pass);
+		} elseif ($settings instanceof QueryableInterface){
+			$this->connection = $settings;
+		}
 	}
 
 	/**
@@ -38,73 +42,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return array Array of results.
 	 */
-	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra=null){
-		$q = $this->run($q, $a);
-		try {
-			$q->setFetchMode($mode, $extra);
-		} catch (PDOException $exception){
-			if ($exception->getCode() === 'HY000'){
-				$q->setFetchMode($mode);
-			} else {
-				throw $exception;
-			}
-		}
-		return $q->fetchAll();
-	}
-
-	/** Run a query and return the executed statement.
-	 * @param $q string Query string
-	 * @param array $a Unsafe query values.
-	 * @return PDOStatement
-	 */
-	private function run($q, $a = []){
-		$stmt = $this->make($q, $a);
-		$succ = $stmt->execute();
-		if (!$succ){
-			throw new PDOException($stmt->errorInfo()[2], $stmt->errorInfo()[1]);
-		}
-		return $stmt;
-	}
-
-	/** Created a prepared statement and fill it with data.
-	 * @param $q string Query string
-	 * @param array $a Unsafe query values.
-	 * @return PDOStatement
-	 */
-	private function make($q, $a = []){
-		$stmt = $this->prep($q);
-		return $this->fill($stmt, $a);
-	}
-
-	/**
-	 * Create a prepared query.
-	 * @param $q string The query to prepare.
-	 * @return PDOStatement
-	 */
-	private function prep($q){
-		return $this->connection->prepare($q);
-	}
-
-	/** Fill a PDOStatement with prepared arguments.
-	 * @param PDOStatement $stmt Statement to fill.
-	 * @param array $args Unsafe query values.
-	 * @return PDOStatement Filled statement.
-	 */
-	private function fill($stmt, $args = []){
-		foreach ($args as $name => $arg){
-			$type = PDO::PARAM_STR;
-			if (is_numeric($arg)){
-				$type = PDO::PARAM_INT;
-			} elseif (is_bool($arg)) {
-				$type = PDO::PARAM_BOOL;
-			}
-
-			if (is_numeric($name)){
-				$name++;
-			}
-			$stmt->bindValue($name, $arg, $type);
-		}
-		return $stmt;
+	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC){
+		return $this->connection->select_all($q, $a, $mode);
 	}
 
 	/** Select a single row for a given query.
@@ -113,27 +52,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return mixed
 	 */
-	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC, $extra = null){
-		$q = $this->run($q, $a);
-		try {
-			$q->setFetchMode($mode, $extra);
-		} catch (PDOException $exception){
-			if ($exception->getCode() === 'HY000'){
-				$q->setFetchMode($mode);
-			} else {
-				throw $exception;
-			}
-		}
-		return $q->fetch();
-	}
-
-	/** Run a statement, but return the query rather than the data.
-	 * @param $q string Query
-	 * @param array $a Unsafe query values.
-	 * @return PDOStatement Executed query.
-	 */
-	public function return_stmt($q, $a = []){
-		return $this->run($q, $a);
+	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC){
+		return $this->connection->select($q, $a, $mode);
 	}
 
 	/** Run a bulk select using multiple data sets.
@@ -143,27 +63,23 @@ class DB {
 	 * @return Generator
 	 */
 	public function bulk_select($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		$stmt = $this->prep($q);
 		foreach ($a as $v){
 			if (!is_array($v)){
 				$v = [$v];
 			}
 
-			$succ = $stmt->execute($v);
-			if (!$succ){
-				throw new PDOException($stmt->errorInfo()[2], $stmt->errorInfo()[1]);
-			}
-
-			yield $stmt->fetchAll($mode);
+			yield $this->connection->select_all($q, $v, $mode);
 		}
 	}
 
 	/** Check if a table exists.
-	 * @param $t string Table name.
+	 * @param $schema string The database to check against.
+	 * @param $table string The table to search for.
 	 * @return bool
 	 */
-	public function exists($t){
-		return $this->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$this->settings['db'], $t]);
+	public function exists($schema, $table){
+		// TODO: Migrate this to underlying driver.
+		return $this->connection->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$schema, $table]);
 	}
 
 	/** Check if there's any data in a given table matching a given where.
@@ -173,7 +89,7 @@ class DB {
 	 * @return bool
 	 */
 	public function any($t, $w = false, $a = []){
-		return $this->count($t, $w, $a) > 0;
+		return $this->connection->any($t, $w ?: '', $a) > 0;
 	}
 
 	/** Fetch the number of rows in a given table matching a given where.
@@ -183,8 +99,7 @@ class DB {
 	 * @return integer
 	 */
 	public function count($t, $w = false, $a = []){
-		$w = $w ? "WHERE {$w}" : '';
-		return intval($this->selecto("SELECT COUNT(*) count FROM {$t} {$w}", $a)['count']);
+		return $this->connection->count($t, $w ?: '', $a);
 	}
 
 	/** Drop a given table.
@@ -192,7 +107,7 @@ class DB {
 	 * @return int Number of effected tables.
 	 */
 	public function drop($t){
-		return $this->query(sprintf("DROP TABLE %s", $t));
+		return $this->connection->query(sprintf("DROP TABLE %s", $t));
 	}
 
 	/** Run a raw query on the DB.
@@ -201,7 +116,7 @@ class DB {
 	 * @return int Number of effected rows.
 	 */
 	public function query($q, $a = []){
-		return $this->run($q, $a)->rowCount();
+		return $this->connection->query($q, $a);
 	}
 
 	/** Generate a table with given name.
