@@ -82,7 +82,7 @@ final class SQLiteDBTest extends TestCase {
 		$this->assertEquals([['name' => 'hi'], ['name' => 'no'], ['name' => 'u']], self::$driver->select_all('SELECT * FROM test'));
 
 		$gen = self::$driver->selector('SELECT * FROM test');
-		$this->assertCount(1, iterator_to_array($gen));
+		$this->assertCount(3, iterator_to_array($gen));
 	}
 
 	/**
@@ -92,7 +92,7 @@ final class SQLiteDBTest extends TestCase {
 		$this->assertEquals(3, self::$driver->count('test'));
 		$this->assertEquals(0, self::$driver->count('test', 'name="balls"'));
 
-		$this->assertEquals(3, self::$driver->count('test', 'name=?', ['hi']));
+		$this->assertEquals(1, self::$driver->count('test', 'name=?', ['hi']));
 		$this->assertEquals(0, self::$driver->count('test', 'name=?', ['balls']));
 	}
 
