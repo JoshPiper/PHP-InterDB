@@ -54,4 +54,15 @@ abstract class AbstractColumnDefiner implements DefinableInterface {
 	public function setIsPrimary(bool $isPrimary): void{
 		$this->isPrimary = $isPrimary;
 	}
+
+	public static function fromArray(string $name, array $col): AbstractColumnDefiner {
+		$x = new static($name);
+		$x->setType($col['type']);
+		$x->setLength(isset($col['length']) ? $col['length'] : 0);
+		$x->setIsNullable(isset($col['null']) && $col['null']);
+		$x->setDefault(isset($col['default']) ? $col['default'] : '');
+		$x->setIsAutoIncrement($col['ai']);
+		$x->setIsPrimary($col['pk']);
+		return $x;
+	}
 }
