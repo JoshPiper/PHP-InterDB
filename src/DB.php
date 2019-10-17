@@ -122,25 +122,10 @@ class DB {
 	 * @param $t string Table name.
 	 * @param array $c List of column definitions.
 	 * @param bool|string $e SQL engine to use.
+	 * @param string $s Schema to load into.
 	 */
-	public function table($t, $c = [], $e = false){
-		$q = [];
-		$pk = [];
-
-		foreach ($c as $name => $col){
-			$q[] = "\t" . $this->defineColumn($name, $col, $pk);
-		}
-
-		if (count($pk) > 0){
-			$q[] = "\tPRIMARY KEY (" . join(", ", $pk) . ")";
-		}
-
-		$q = sprintf("CREATE TABLE `%s` (\n%s\n)", $t, join(",\n", $q));
-		if ($e){
-			$q .= " ENGINE={$e}";
-		}
-
-		$this->query($q);
+	public function table($t, $c = [], $e = false, $s = ''){
+		$this->connection->table($t, $s, $c, $e);
 	}
 
 	/** Function to take a column definition and turn it into a MySQL column def.

@@ -5,9 +5,14 @@ namespace Internet\InterDB\Drivers;
 
 
 use Internet\InterDB\Exceptions\SQLException;
+use Internet\InterDB\Definers\SQLiteTableDefiner;
+use Internet\InterDB\Definers\SQLiteColumnDefiner;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 class SQLiteDriver extends AbstractCreatorPDODriver {
+	protected const tableDefiner = SQLiteTableDefiner::class;
+	protected const columnDefiner = SQLiteColumnDefiner::class;
+
 	/** {@inheritDoc}
 	 * @throws DSNCreationException
 	 */

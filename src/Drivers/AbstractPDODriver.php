@@ -7,6 +7,8 @@ use PDOStatement;
 use PDOException;
 use Internet\InterDB\Exceptions\SQLException;
 use Internet\InterDB\Interfaces\QueryableInterface;
+use Internet\InterDB\Definers\AbstractTableDefiner;
+use Internet\InterDB\Definers\AbstractColumnDefiner;
 use const Internet\InterDB\Constants\FETCH_ASSOC;
 
 abstract class AbstractPDODriver implements QueryableInterface {
@@ -14,6 +16,9 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 * @var $connection PDO;
 	 */
 	protected $connection;
+
+	protected const tableDefiner = AbstractTableDefiner::class;
+	protected const columnDefiner = AbstractColumnDefiner::class;
 
 	/** Generate a prepared statement
 	 * @param $query
@@ -127,5 +132,24 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 */
 	public function any(string $table, string $where = '', array $args = []): bool{
 		return $this->count($table, $where, $args) > 0;
+	}
+
+	/** {@inheritDoc}
+	 * @param string $table
+	 * @param string $schema
+	 * @param array $columns
+	 * @throws SQLException
+	 */
+	public function table(string $table, string $schema = '', array $columns = [], string $engine = ''): void{
+		/** @var AbstractTableDefiner $table */
+		$table = new (self::tableDefiner)($schema, $table);
+
+		$cd = (self::columnDefiner);
+		foreach ($columns as $name => $column){
+			$table->addColumn($$cd::fromArray($name, $column));
+		}
+		$table->setEngine($engine);
+
+		$this->query($table->toSQL());
 	}
 }

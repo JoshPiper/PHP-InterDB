@@ -5,9 +5,14 @@ namespace Internet\InterDB\Drivers;
 
 
 use Internet\InterDB\Exceptions\SQLException;
+use Internet\InterDB\Definers\MySQLTableDefiner;
+use Internet\InterDB\Definers\MySQLColumnDefiner;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 class MySQLDriver extends AbstractCreatorPDODriver {
+	protected const tableDefiner = MySQLTableDefiner::class;
+	protected const columnDefiner = MySQLColumnDefiner::class;
+
 	/** {@inheritDoc}
 	 * @throws DSNCreationException
 	 */

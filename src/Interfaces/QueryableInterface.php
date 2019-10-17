@@ -58,4 +58,11 @@ interface QueryableInterface {
 	 * @return bool
 	 */
 	public function table_exists(string $table, string $schema = ''): bool;
+
+	/** Create a new data from the given data array.
+	 * @param string $table
+	 * @param string $schema
+	 * @param array $data
+	 */
+	public function table(string $table, string $schema = '', array $data = []): void;
 }
