@@ -4,6 +4,7 @@
 namespace Internet\InterDB\Drivers;
 
 
+use Internet\InterDB\Exceptions\SQLException;
 use Internet\InterDB\Exceptions\DSNCreationException;
 
 class MySQLDriver extends AbstractCreatorPDODriver {
@@ -24,5 +25,15 @@ class MySQLDriver extends AbstractCreatorPDODriver {
 		self::remap($settings, 'db', 'dbname');
 
 		return $this->constructDSN($settings);
+	}
+
+	/**
+	 * @param string $table
+	 * @param string $schema
+	 * @return bool
+	 * @throws SQLException
+	 */
+	public function table_exists(string $table, string $schema = ''): bool{
+		return $this->any('information_schema.TABLES', 'TABLE_SCHEMA = ? AND TABLE_NAME = ?', [$schema, $table]);
 	}
 }

@@ -51,4 +51,11 @@ interface QueryableInterface {
 	 * @return bool
 	 */
 	public function any(string $table, string $where = '', array $args = []): bool;
+
+	/** Check if a given database table exists.
+	 * @param string $table The table to check against.
+	 * @param string $schema The database the table exists in.
+	 * @return bool
+	 */
+	public function table_exists(string $table, string $schema = ''): bool;
 }

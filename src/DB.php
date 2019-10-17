@@ -78,8 +78,7 @@ class DB {
 	 * @return bool
 	 */
 	public function exists($schema, $table){
-		// TODO: Migrate this to underlying driver.
-		return $this->connection->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$schema, $table]);
+		return $this->connection->table_exists($table, $schema);
 	}
 
 	/** Check if there's any data in a given table matching a given where.
