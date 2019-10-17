@@ -142,7 +142,8 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 */
 	public function table(string $table, string $schema = '', array $columns = [], string $engine = ''): void{
 		/** @var AbstractTableDefiner $table */
-		$table = new (self::tableDefiner)($schema, $table);
+		$td = self::tableDefiner;
+		$table = new $td($schema, $table);
 
 		$cd = (self::columnDefiner);
 		foreach ($columns as $name => $column){
