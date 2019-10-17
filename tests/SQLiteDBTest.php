@@ -66,27 +66,39 @@ final class SQLiteDBTest extends TestCase {
 		$this->assertTrue(self::$driver->any('sqlite_master', 'type = "table" AND tbl_name = "test"'), 'no tables exist');
 	}
 
+	/**
+	 * @depends testTableCreation
+	 */
 	public function testInsert(): void{
 		$this->expectNotToPerformAssertions();
-		self::$driver->query('INSERT INTO test VALUES ("hi")');
+		self::$driver->query('INSERT INTO test VALUES ("hi"), ("no"), ("u")');
 	}
 
+	/**
+	 * @depends testInsert
+	 */
 	public function testSelect(): void{
 		$this->assertEquals(['name' => 'hi'], self::$driver->select('SELECT * FROM test'));
-		$this->assertEquals([['name' => 'hi']], self::$driver->select_all('SELECT * FROM test'));
+		$this->assertEquals([['name' => 'hi'], ['name' => 'no'], ['name' => 'u']], self::$driver->select_all('SELECT * FROM test'));
 
 		$gen = self::$driver->selector('SELECT * FROM test');
 		$this->assertCount(1, iterator_to_array($gen));
 	}
 
+	/**
+	 * @depends testInsert
+	 */
 	public function testCount(): void{
-		$this->assertEquals(1, self::$driver->count('test'));
+		$this->assertEquals(3, self::$driver->count('test'));
 		$this->assertEquals(0, self::$driver->count('test', 'name="balls"'));
 
-		$this->assertEquals(1, self::$driver->count('test', 'name=?', ['hi']));
+		$this->assertEquals(3, self::$driver->count('test', 'name=?', ['hi']));
 		$this->assertEquals(0, self::$driver->count('test', 'name=?', ['balls']));
 	}
 
+	/**
+	 * @depends testInsert
+	 */
 	public function testAny(): void{
 		$this->assertTrue(self::$driver->any('test'));
 		$this->assertFalse(self::$driver->any('test', 'name="balls"'));

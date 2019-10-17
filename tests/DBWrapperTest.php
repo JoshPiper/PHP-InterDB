@@ -80,13 +80,14 @@ final class DBWrapperTest extends TestCase {
 	 * @depends testInsert
 	 */
 	public function testSelectBulk(): void{
-		$generator = self::$wrapper->bulk_select("SELECT * FROM testtable WHERE keycol = ?", [1, 2]);
+		$gen = self::$wrapper->bulk_select("SELECT * FROM testtable WHERE keycol = ?", [1, 2]);
 		$data = [];
-		foreach ($generator as $row){$data[] = $row;}
+		foreach ($gen as $row){$data[] = $row;}
+		var_dump($gen);
 
 		$this->assertEquals([
-			['keycol' => 1, 'namecol' => 'bigname'],
-			['keycol' => 2, 'namecol' => 'notorious B.I.G'],
+			[['keycol' => 1, 'namecol' => 'bigname']],
+			[['keycol' => 2, 'namecol' => 'notorious B.I.G']],
 		], $data);
 	}
 
