@@ -97,8 +97,8 @@ final class DBWrapperTest extends TestCase {
 	 * @depends testColumns
 	 */
 	public function testExists(){
-		$this->assertTrue(self::$wrapper->exists('testtable'));
-		$this->assertFalse(self::$wrapper->exists('faketable'));
+		$this->assertTrue(self::$wrapper->exists('ci', 'testtable'));
+		$this->assertFalse(self::$wrapper->exists('ci', 'faketable'));
 	}
 
 	public function testMigrations(){

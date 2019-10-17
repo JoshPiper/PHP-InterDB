@@ -73,12 +73,13 @@ class DB {
 	}
 
 	/** Check if a table exists.
-	 * @param $t string Table name.
+	 * @param $schema string The database to check against.
+	 * @param $table string The table to search for.
 	 * @return bool
 	 */
-	public function exists($t){
+	public function exists($schema, $table){
 		// TODO: Migrate this to underlying driver.
-		return $this->connection->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$this->settings['db'], $t]);
+		return $this->connection->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$schema, $table]);
 	}
 
 	/** Check if there's any data in a given table matching a given where.
