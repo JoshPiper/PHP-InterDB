@@ -93,4 +93,21 @@ final class DBWrapperTest extends TestCase {
 		], $data);
 	}
 
+	/**
+	 * @depends testColumns
+	 */
+	public function testExists(){
+		$this->assertTrue(self::$wrapper->exists('testtable'));
+		$this->assertFalse(self::$wrapper->exists('faketable'));
+	}
+
+	public function testMigrations(){
+		self::$wrapper->table('migrations', [
+			'migration' => ['type' => 'varchar', 'length' => 255, 'pk' => true]
+		], 'InnoDB');
+		self::$wrapper->migrated("test_migration");
+		$this->assertTrue(self::$wrapper->any('migrations', 'migration = "test_migration"'));
+		self::$wrapper->unmigrated("test_migration");
+		self::$wrapper->drop('migrations');
+	}
 }
