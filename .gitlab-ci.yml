@@ -21,10 +21,11 @@ variables:
 .test: &test
   artifacts:
     paths:
-      - reports
+      - coverage/
+      - test.html
     when: always
   script:
-    - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html reports/coverage --testdox-html reports/test.html --colors=never --whitelist src/ tests
+    - phpdbg -qrr vendor/bin/phpunit --debug -vvv --bootstrap vendor/autoload.php --coverage-text --coverage-html coverage --testdox-html test.html --colors=never --whitelist src/ tests
   stage: test
   before_script:
     - apk update && apk add git unzip -q && apk add mysql-client -q
