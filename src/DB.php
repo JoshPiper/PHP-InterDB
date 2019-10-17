@@ -56,15 +56,6 @@ class DB {
 		return $this->connection->select($q, $a, $mode);
 	}
 
-	/** Run a statement, but return the query rather than the data.
-	 * @param $q string Query
-	 * @param array $a Unsafe query values.
-	 * @return PDOStatement Executed query.
-	 */
-	public function return_stmt($q, $a = []){
-		return $this->run($q, $a);
-	}
-
 	/** Run a bulk select using multiple data sets.
 	 * @param $q string Query.
 	 * @param array $a Array of array of unsafe query values.
@@ -77,11 +68,7 @@ class DB {
 				$v = [$v];
 			}
 
-			try {
-				yield $this->connection->select_all($q, $v, $mode);
-			} catch (SQLException $exception){
-				throw new PDOException($exception->getMessage(), $exception->getCode(), $exception);
-			}
+			yield $this->connection->select_all($q, $v, $mode);
 		}
 	}
 
@@ -90,6 +77,7 @@ class DB {
 	 * @return bool
 	 */
 	public function exists($t){
+		// TODO: Migrate this to underlying driver.
 		return $this->connection->any("information_schema.TABLES", "TABLE_SCHEMA = ? AND TABLE_NAME = ?", [$this->settings['db'], $t]);
 	}
 
