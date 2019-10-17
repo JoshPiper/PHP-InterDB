@@ -83,7 +83,6 @@ final class DBWrapperTest extends TestCase {
 		$gen = self::$wrapper->bulk_select("SELECT * FROM testtable WHERE keycol = ?", [1, 2]);
 		$data = [];
 		foreach ($gen as $row){$data[] = $row;}
-		var_dump($gen);
 
 		$this->assertEquals([
 			[['keycol' => 1, 'namecol' => 'bigname']],
