@@ -147,7 +147,7 @@ abstract class AbstractPDODriver implements QueryableInterface {
 
 		$cd = (static::columnDefiner);
 		foreach ($columns as $name => $column){
-			$table->addColumn($$cd::fromArray($name, $column));
+			$table->addColumn($cd::fromArray($name, $column));
 		}
 		$table->setEngine($engine);
 
