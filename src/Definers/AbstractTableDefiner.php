@@ -51,7 +51,7 @@ abstract class AbstractTableDefiner implements DefinableInterface {
 		$this->columns[] = $column;
 	}
 
-	protected function getColumnDefs(){
+	protected function getColumnDefs($pk = true){
 		$data = [];
 		foreach ($this->columns as $column){
 			if ($column->isPrimary()){
@@ -61,7 +61,7 @@ abstract class AbstractTableDefiner implements DefinableInterface {
 			$data[] = $column->toSQL();
 		}
 
-		if (count($this->keys) > 0){
+		if ($pk && count($this->keys) > 0){
 			$data[] = "PRIMARY KEY (`" . join('`, `', $this->keys) . "`)";
 		}
 
