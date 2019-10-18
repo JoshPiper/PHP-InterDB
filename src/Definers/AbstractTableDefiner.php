@@ -56,8 +56,9 @@ abstract class AbstractTableDefiner implements DefinableInterface {
 		foreach ($this->columns as $column){
 			if ($column->isPrimary()){
 				$this->keys[] = $column->getName();
-				$data[] = $column->toSQL();
 			}
+
+			$data[] = $column->toSQL();
 		}
 
 		if (count($this->keys) > 0){
