@@ -10,9 +10,9 @@ class SQLiteColumnDefiner extends AbstractColumnDefiner {
 			array_filter([
 				"`{$this->name}`",
 				$this->type->toString(),
+				$this->isPrimary ? 'PRIMARY KEY' : '',
 				$this->isNullable ? '' : 'NOT NULL',
-				$this->default ? "DEFAULT {$this->default}": '',
-				$this->isAutoIncrement ? 'AUTOINCREMENT' : ''
+				$this->default ? "DEFAULT {$this->default}": ''
 			])
 		);
 	}
