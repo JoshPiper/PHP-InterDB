@@ -151,6 +151,7 @@ abstract class AbstractPDODriver implements QueryableInterface {
 		}
 		$table->setEngine($engine);
 
+		var_dump($table->toSQL());
 		$this->query($table->toSQL());
 	}
 }
