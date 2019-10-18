@@ -41,7 +41,6 @@ final class DBWrapperTest extends TestCase {
 	}
 
 	public function testColumns(): void{
-		var_dump(self::$wrapper->select("SHOW TABLES;"));
 		$cols = [
 			'keycol' => ['type' => 'bigint', 'ai' => true, 'pk' => true],
 			'namecol' => ['type' => 'varchar', 'length' => '50', 'default' => '"string"']
