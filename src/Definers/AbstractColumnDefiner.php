@@ -61,8 +61,8 @@ abstract class AbstractColumnDefiner implements DefinableInterface {
 		$x->setLength(isset($col['length']) ? $col['length'] : 0);
 		$x->setIsNullable(isset($col['null']) && $col['null']);
 		$x->setDefault(isset($col['default']) ? $col['default'] : '');
-		$x->setIsAutoIncrement($col['ai']);
-		$x->setIsPrimary($col['pk']);
+		$x->setIsAutoIncrement((bool)$col['ai']);
+		$x->setIsPrimary((bool)$col['pk']);
 		return $x;
 	}
 }
