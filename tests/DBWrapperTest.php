@@ -45,7 +45,7 @@ final class DBWrapperTest extends TestCase {
 			'keycol' => ['type' => 'bigint', 'ai' => true, 'pk' => true],
 			'namecol' => ['type' => 'varchar', 'length' => '50', 'default' => '"string"']
 		];
-		self::$wrapper->table('testtable', $cols, 'InnoDB');
+		self::$wrapper->table('testtable', $cols, 'InnoDB', 'ci');
 		$this->assertTrue(self::$wrapper->any('information_schema.tables', 'TABLE_NAME = ?', ['testtable']));
 
 		self::$wrapper->addColumn('testtable', 'newcolumn', ['type' => 'varchar', 'length' => 20, 'default' => '"no"'], 'keycol');
@@ -104,7 +104,7 @@ final class DBWrapperTest extends TestCase {
 	public function testMigrations(){
 		self::$wrapper->table('migrations', [
 			'migration' => ['type' => 'varchar', 'length' => 255, 'pk' => true]
-		], 'InnoDB');
+		], 'InnoDB', 'ci');
 		self::$wrapper->migrated("test_migration");
 		$this->assertTrue(self::$wrapper->any('migrations', 'migration = "test_migration"'));
 		self::$wrapper->unmigrated("test_migration");
