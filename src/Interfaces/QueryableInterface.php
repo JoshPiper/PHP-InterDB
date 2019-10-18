@@ -16,25 +16,28 @@ interface QueryableInterface {
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return array
 	 */
-	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC): array;
+	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): array;
 
 	/** Select an array of rows from the data source and return it.
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return array
 	 */
-	public function select_all(string $query, array $args = [], int $mode = FETCH_ASSOC): array;
+	public function select_all(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): array;
 
 	/** Get a row iterator from the data source.
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return iterable
 	 */
-	public function selector(string $query, array $args = [], int $mode = FETCH_ASSOC): iterable;
+	public function selector(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): iterable;
 
 	/** Count the number of rows in a table that match a given where clause.
 	 * @param string $table The table to check against.

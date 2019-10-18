@@ -75,35 +75,43 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return array
 	 * @throws SQLException
 	 */
-	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC): array{
-		return $this->execute($query, $args)->fetch($mode);
+	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): array{
+		$stmt = $this->execute($query, $args);
+		$stmt->setFetchMode($mode, ...$extra);
+		return $stmt->fetch($mode);
 	}
 
 	/** Select an array of rows from the data source and return it.
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return array
 	 * @throws SQLException
 	 */
-	public function select_all(string $query, array $args = [], int $mode = FETCH_ASSOC): array{
-		return $this->execute($query, $args)->fetchAll($mode);
+	public function select_all(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): array{
+		$stmt = $this->execute($query, $args);
+		$stmt->setFetchMode($mode, ...$extra);
+		return $stmt->fetchAll();
 	}
 
 	/** Get a row iterator from the data source.
 	 * @param string $query The query to send.
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
+	 * @param array $extra
 	 * @return iterable
 	 * @throws SQLException
 	 */
-	public function selector(string $query, array $args = [], int $mode = FETCH_ASSOC): iterable{
+	public function selector(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): iterable{
 		$stmt = $this->execute($query, $args);
+		$stmt->setFetchMode($mode, ...$extra);
 
-		$row = $stmt->fetch($mode);
+		$row = $stmt->fetch();
 		while ($row){
 			yield $row;
 			$row = $stmt->fetch($mode);
