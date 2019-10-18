@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="29950c3a-2e88-4039-94cf-22985b7f8d2a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="29950c3a-2e88-4039-94cf-22985b7f8d2a" name="Default Changelist" comment="" />
+    <list id="144826cf-da19-4da2-ad6d-9534a596b52c" name="Don't Care" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/discord.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/discord.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -205,77 +207,10 @@
       <workItem from="1571143650106" duration="592000" />
       <workItem from="1571158894184" duration="3331000" />
       <workItem from="1571255585638" duration="325000" />
-      <workItem from="1571255930727" duration="9759000" />
-    </task>
-    <task id="LOCAL-00069" summary="Try that instead??">
-      <created>1571055151008</created>
-      <option name="number" value="00069" />
-      <option name="presentableId" value="LOCAL-00069" />
-      <option name="project" value="LOCAL" />
-      <updated>1571055151008</updated>
-    </task>
-    <task id="LOCAL-00070" summary="switch host back to mysql.">
-      <created>1571055908288</created>
-      <option name="number" value="00070" />
-      <option name="presentableId" value="LOCAL-00070" />
-      <option name="project" value="LOCAL" />
-      <updated>1571055908288</updated>
-    </task>
-    <task id="LOCAL-00071" summary="dump the dns again/">
-      <created>1571055928690</created>
-      <option name="number" value="00071" />
-      <option name="presentableId" value="LOCAL-00071" />
-      <option name="project" value="LOCAL" />
-      <updated>1571055928690</updated>
-    </task>
-    <task id="LOCAL-00072" summary="Added mysql setup check and await the ready state before continuing.">
-      <created>1571056543021</created>
-      <option name="number" value="00072" />
-      <option name="presentableId" value="LOCAL-00072" />
-      <option name="project" value="LOCAL" />
-      <updated>1571056543021</updated>
-    </task>
-    <task id="LOCAL-00073" summary="Moved before script to test stage.">
-      <created>1571056658312</created>
-      <option name="number" value="00073" />
-      <option name="presentableId" value="LOCAL-00073" />
-      <option name="project" value="LOCAL" />
-      <updated>1571056658312</updated>
-    </task>
-    <task id="LOCAL-00074" summary="dot slash.">
-      <created>1571056768110</created>
-      <option name="number" value="00074" />
-      <option name="presentableId" value="LOCAL-00074" />
-      <option name="project" value="LOCAL" />
-      <updated>1571056768110</updated>
-    </task>
-    <task id="LOCAL-00075" summary="chmod it to be executable.">
-      <created>1571056877296</created>
-      <option name="number" value="00075" />
-      <option name="presentableId" value="LOCAL-00075" />
-      <option name="project" value="LOCAL" />
-      <updated>1571056877296</updated>
-    </task>
-    <task id="LOCAL-00076" summary="Fix code.">
-      <created>1571057207279</created>
-      <option name="number" value="00076" />
-      <option name="presentableId" value="LOCAL-00076" />
-      <option name="project" value="LOCAL" />
-      <updated>1571057207279</updated>
-    </task>
-    <task id="LOCAL-00077" summary="reee.">
-      <created>1571057485089</created>
-      <option name="number" value="00077" />
-      <option name="presentableId" value="LOCAL-00077" />
-      <option name="project" value="LOCAL" />
-      <updated>1571057485089</updated>
-    </task>
-    <task id="LOCAL-00078" summary="why is basic maths so HARD?">
-      <created>1571057655512</created>
-      <option name="number" value="00078" />
-      <option name="presentableId" value="LOCAL-00078" />
-      <option name="project" value="LOCAL" />
-      <updated>1571057655512</updated>
+      <workItem from="1571255930727" duration="11658000" />
+      <workItem from="1571341232898" duration="7000" />
+      <workItem from="1571341285138" duration="558000" />
+      <workItem from="1571342114168" duration="5210000" />
     </task>
     <task id="LOCAL-00079" summary="Switch everything back over to mariadb again.">
       <created>1571058115870</created>
@@ -550,7 +485,77 @@
       <option name="project" value="LOCAL" />
       <updated>1571307557669</updated>
     </task>
-    <option name="localTasksCounter" value="118" />
+    <task id="LOCAL-00118" summary="Unblock .idea">
+      <created>1571309112347</created>
+      <option name="number" value="00118" />
+      <option name="presentableId" value="LOCAL-00118" />
+      <option name="project" value="LOCAL" />
+      <updated>1571309112347</updated>
+    </task>
+    <task id="LOCAL-00119" summary="Unblock .idea">
+      <created>1571309133572</created>
+      <option name="number" value="00119" />
+      <option name="presentableId" value="LOCAL-00119" />
+      <option name="project" value="LOCAL" />
+      <updated>1571309133572</updated>
+    </task>
+    <task id="LOCAL-00120" summary="Moved exists() implementation into the driver layer.">
+      <created>1571341611719</created>
+      <option name="number" value="00120" />
+      <option name="presentableId" value="LOCAL-00120" />
+      <option name="project" value="LOCAL" />
+      <updated>1571341611719</updated>
+    </task>
+    <task id="LOCAL-00121" summary="Moved exists() implementation into the driver layer.">
+      <created>1571341798480</created>
+      <option name="number" value="00121" />
+      <option name="presentableId" value="LOCAL-00121" />
+      <option name="project" value="LOCAL" />
+      <updated>1571341798480</updated>
+    </task>
+    <task id="LOCAL-00122" summary="Added definable interface and column definers for SQLite and MySQL.">
+      <created>1571343376778</created>
+      <option name="number" value="00122" />
+      <option name="presentableId" value="LOCAL-00122" />
+      <option name="project" value="LOCAL" />
+      <updated>1571343376778</updated>
+    </task>
+    <task id="LOCAL-00123" summary="Added table definers for mysql and sqlite.">
+      <created>1571344327564</created>
+      <option name="number" value="00123" />
+      <option name="presentableId" value="LOCAL-00123" />
+      <option name="project" value="LOCAL" />
+      <updated>1571344327564</updated>
+    </task>
+    <task id="LOCAL-00124" summary="Added fromArray static method for column definitions.">
+      <created>1571346224454</created>
+      <option name="number" value="00124" />
+      <option name="presentableId" value="LOCAL-00124" />
+      <option name="project" value="LOCAL" />
+      <updated>1571346224454</updated>
+    </task>
+    <task id="LOCAL-00125" summary="Added table definers to drivers.&#10;Migrated table from DB to driver level.">
+      <created>1571346358782</created>
+      <option name="number" value="00125" />
+      <option name="presentableId" value="LOCAL-00125" />
+      <option name="project" value="LOCAL" />
+      <updated>1571346358782</updated>
+    </task>
+    <task id="LOCAL-00126" summary="Switch that out.">
+      <created>1571346666872</created>
+      <option name="number" value="00126" />
+      <option name="presentableId" value="LOCAL-00126" />
+      <option name="project" value="LOCAL" />
+      <updated>1571346666872</updated>
+    </task>
+    <task id="LOCAL-00127" summary="Removed the generic PDO driver.">
+      <created>1571346992332</created>
+      <option name="number" value="00127" />
+      <option name="presentableId" value="LOCAL-00127" />
+      <option name="project" value="LOCAL" />
+      <updated>1571346992332</updated>
+    </task>
+    <option name="localTasksCounter" value="128" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,14 +575,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Use the container driver, don't build a new one." />
-    <MESSAGE value="Added tests for DSN and Connection errors." />
-    <MESSAGE value="Added a test casae for the generic PDO driver." />
-    <MESSAGE value="Added a bad user test, fixed the DSN failure test exception." />
-    <MESSAGE value="Test for any." />
-    <MESSAGE value="Added DBWrapper test to test the DB wrapper itself." />
-    <MESSAGE value="Changed DB from information schema to ci testing db." />
-    <MESSAGE value="Ensure that the table is created." />
     <MESSAGE value="Updated .idea files." />
     <MESSAGE value="Added extra to select to allow FETCH_CLASS." />
     <MESSAGE value="That needs setfetchmode." />
@@ -595,6 +592,14 @@
     <MESSAGE value="Add quotes around the default value." />
     <MESSAGE value="Replace reference to settings, which may not exist." />
     <MESSAGE value="Back out of the reports dir." />
-    <option name="LAST_COMMIT_MESSAGE" value="Back out of the reports dir." />
+    <MESSAGE value="Unblock .idea" />
+    <MESSAGE value="Moved exists() implementation into the driver layer." />
+    <MESSAGE value="Added definable interface and column definers for SQLite and MySQL." />
+    <MESSAGE value="Added table definers for mysql and sqlite." />
+    <MESSAGE value="Added fromArray static method for column definitions." />
+    <MESSAGE value="Added table definers to drivers.&#10;Migrated table from DB to driver level." />
+    <MESSAGE value="Switch that out." />
+    <MESSAGE value="Removed the generic PDO driver." />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the generic PDO driver." />
   </component>
 </project>
