@@ -11,7 +11,7 @@ class SQLiteColumnDefiner extends AbstractColumnDefiner {
 				"`{$this->name}`",
 				$this->type->toString(),
 				$this->isNullable ? '' : 'NOT NULL',
-				$this->default ?: '',
+				$this->default ? "DEFAULT {$this->default}": '',
 				$this->isAutoIncrement ? 'AUTOINCREMENT' : ''
 			])
 		);
