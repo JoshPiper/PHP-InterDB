@@ -42,8 +42,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return array Array of results.
 	 */
-	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		return $this->connection->select_all($q, $a, $mode);
+	public function select($q, $a = [], $mode = PDO::FETCH_ASSOC, ...$extra){
+		return $this->connection->select_all($q, $a, $mode, ...$extra);
 	}
 
 	/** Select a single row for a given query.
@@ -52,8 +52,8 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return mixed
 	 */
-	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC){
-		return $this->connection->select($q, $a, $mode);
+	public function selecto($q, $a = [], $mode = PDO::FETCH_ASSOC, ...$extra){
+		return $this->connection->select($q, $a, $mode, ...$extra);
 	}
 
 	/** Run a bulk select using multiple data sets.
@@ -62,13 +62,13 @@ class DB {
 	 * @param int $mode PDO fetch mode.
 	 * @return Generator
 	 */
-	public function bulk_select($q, $a = [], $mode = PDO::FETCH_ASSOC){
+	public function bulk_select($q, $a = [], $mode = PDO::FETCH_ASSOC, ...$extra){
 		foreach ($a as $v){
 			if (!is_array($v)){
 				$v = [$v];
 			}
 
-			yield $this->connection->select_all($q, $v, $mode);
+			yield $this->connection->select_all($q, $v, $mode, ...$extra);
 		}
 	}
 
