@@ -76,10 +76,10 @@ abstract class AbstractPDODriver implements QueryableInterface {
 	 * @param array $args Array of keys and values to send with the query.
 	 * @param int $mode Fetch Mode
 	 * @param array $extra
-	 * @return array
+	 * @return mixed
 	 * @throws SQLException
 	 */
-	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra): array{
+	public function select(string $query, array $args = [], int $mode = FETCH_ASSOC, ...$extra){
 		$stmt = $this->execute($query, $args);
 		$stmt->setFetchMode($mode, ...$extra);
 		return $stmt->fetch($mode);
