@@ -35,6 +35,12 @@ class DB {
 		}
 	}
 
+	public function __call($name, $arguments){
+		if (method_exists($this->connection, $name)){
+			return $this->connection->{$name}(...$arguments);
+		}
+	}
+
 	/**
 	 * Run a select query on the DB.
 	 * @param $q string Query to run.
