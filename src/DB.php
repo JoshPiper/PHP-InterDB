@@ -56,6 +56,16 @@ class DB {
 		return $this->connection->select($q, $a, $mode, ...$extra);
 	}
 
+	/** Pull a selection generator for a query.
+	 * @param $q string Query to run
+	 * @param array $a Unsafe query values.
+	 * @param int $mode PDO fetch mode.
+	 * @return Generator
+	 */
+	public function selector($q, $a = [], $mode = PDO::FETCH_ASSOC, ...$extra){
+		return $this->connection->selector($q, $a, $mode, ...$extra);
+	}
+
 	/** Run a bulk select using multiple data sets.
 	 * @param $q string Query.
 	 * @param array $a Array of array of unsafe query values.
