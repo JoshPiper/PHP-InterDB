@@ -29,8 +29,6 @@ jobs:
         run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
-      - name: Install PECL Extensions
-        run: pear config-set php_ini "$PHP_INI_DIR/php.ini" && pecl install pcov && docker-php-ext-enable pcov
       - name: Install Composer
         id: composer-install
         run: |
@@ -45,13 +43,13 @@ jobs:
           key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
           path: ${{ steps.composer-install.outputs.cache-dir }}
           restore-keys: composer-${{ runner.os }}- composer--
-      - name: Update PHPUnit
+      - name: Install Dependencies & Update PHPUnit
         run: composer update --no-ansi --with-dependencies phpunit/phpunit
-      - name: Install Composer Libraries
-        run: composer install --no-ansi
       - name: Check PHPUnit Version
         id: phpunit-check
-        run: composer show -i phpunit/phpunit
+        run: echo "::set-output name=version::$(composer show phpunit/phpunit | grep "versions" | grep "[\d\w.]*")"
+#      - name: Install PECL Extensions
+#          run: pear config-set php_ini "$PHP_INI_DIR/php.ini" && pecl install pcov && docker-php-ext-enable pcov
 #      - name: Run L
 #      - name: Run Tests
 #        run: composer test
