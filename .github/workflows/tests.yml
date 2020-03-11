@@ -31,7 +31,7 @@ jobs:
         run: |
           wget -O installer https://getcomposer.org/installer
           php installer --install-dir=/usr/local/bin --filename=composer
-          echo "::set-output name=cache-dir::$(composer config cache-files-dir)"
+          echo "::set-output name=cache-dir::$(composer global config cache-files-dir)"
       - name: Checkout
         uses: actions/checkout@v1
         with:
