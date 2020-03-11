@@ -26,9 +26,13 @@ jobs:
           MYSQL_PASSWORD: ci
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
       - run: apk update && apk add docker mysql-client
       - run: docker ps
-      - run: docker network inspect ${{ job.network }}
+      - run: docker network inspect ${{ job.services.network }}
 #      - name: Install APK Dependencies
 #        run: apk update && apk add git unzip mysql-client -q
 #      - name: Install PHP Extensions
@@ -53,10 +57,7 @@ jobs:
 #        run: composer update --no-ansi --with-dependencies phpunit/phpunit
 #      - name: Install Composer Libraries
 #        run: composer install --no-ansi
-#      - name: Dump job context
-#        env:
-#          JOB_CONTEXT: ${{ toJson(job) }}
-#        run: echo "$JOB_CONTEXT"
+#
 #      - name: Verify MySQL connection
 #        run: |
 #          ip neigh
