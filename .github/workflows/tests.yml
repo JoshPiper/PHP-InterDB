@@ -37,6 +37,7 @@ jobs:
         with:
           fetch-depth: 1
       - name: Restore Composer Cache
+        uses: actions/cache@v1
         with:
           key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
           path: ${{ steps.composer-install.outputs.cache-dir }}
