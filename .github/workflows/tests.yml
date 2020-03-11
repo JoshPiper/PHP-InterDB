@@ -28,6 +28,8 @@ jobs:
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
       - name: Install Composer
-        run: wget -O installer https://getcomposer.org/installer && php installer --install-dir=/usr/local/bin
+        run: |
+          wget -O installer https://getcomposer.org/installer
+          php installer --install-dir=/usr/local/bin --filename=composer
       - name: Install Composer Libraries
         run: composer install --no-ansi
