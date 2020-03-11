@@ -28,7 +28,7 @@ jobs:
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
       - name: Install PECL Extensions
-        run: pear config-set php_init "$PHP_INI_DIR/php.ini" && pecl install pcov
+        run: pecl config-set php_ini "$PHP_INI_DIR/php.ini" && pecl install pcov
       - name: Install Composer
         id: composer-install
         run: |
