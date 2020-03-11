@@ -52,6 +52,8 @@ jobs:
           MYSQL_DATABASE: ci
           MYSQL_USER: ci
           MYSQL_PASSWORD: ci
+      - name: Find Reports
+        run: pwd && ls
       - name: Upload Coverage
         uses: actions/upload-artifact@v1
         with:
