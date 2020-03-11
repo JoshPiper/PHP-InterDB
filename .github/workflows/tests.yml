@@ -46,9 +46,19 @@ jobs:
       - name: Install Composer Libraries
         run: composer install --no-ansi
       - name: Run Tests
-        run: composer test
+        run: composer test --coverage-html coverage --testdox-html test.html
         env:
           MYSQL_HOST: mysql
           MYSQL_DATABASE: ci
           MYSQL_USER: ci
           MYSQL_PASSWORD: ci
+      - name: Upload Coverage
+          uses: actions/upload-artifact@v1
+          with:
+            name: Coverage Report (${{ matrix.php }})
+            path: coverage/
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: Test Report (${{ matrix.php }})
+          path: test.html
