@@ -12,16 +12,16 @@ jobs:
       matrix:
         php: [7.1, 7.2, 7.3, 7.4]
     container: php:${{ matrix.php }}-alpine
-    services:
-      mysql:
-        image:
-          mysql:5.6
-        env:
-          MYSQL_ROOT_PASSWORD: ci
-          MYSQL_DATABASE: ci
-          MYSQL_USER: ci
-          MYSQL_PASSWORD: ci
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
+#    services:
+#      mysql:
+#        image:
+#          mysql:5.6
+#        env:
+#          MYSQL_ROOT_PASSWORD: ci
+#          MYSQL_DATABASE: ci
+#          MYSQL_USER: ci
+#          MYSQL_PASSWORD: ci
+#        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
 #      - name: Install php.ini
 #        run: mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
