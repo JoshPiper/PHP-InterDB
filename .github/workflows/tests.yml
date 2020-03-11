@@ -25,7 +25,7 @@ jobs:
           MYSQL_PASSWORD: ci
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
-      - docker ps
+      - run: docker ps
 #      - name: Install APK Dependencies
 #        run: apk update && apk add git unzip mysql-client -q
 #      - name: Install PHP Extensions
