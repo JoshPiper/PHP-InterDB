@@ -12,8 +12,6 @@ jobs:
       matrix:
         php: [7.1, 7.2, 7.3, 7.4]
     container: php:${{ matrix.php }}-alpine
-#    container: docker:stable
-#    container: php:7.1-alpine
     services:
       mysql:
         image:
