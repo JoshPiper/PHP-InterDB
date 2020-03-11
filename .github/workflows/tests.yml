@@ -35,10 +35,10 @@ jobs:
         with:
           fetch-depth: 1
       - name: Install Composer Libraries
-        run: composer install --no-ansi --no-dev
-      - name: Install PHPUnit
-        run: |
-          composer global require --no-ansi --no-dev phpunit/phpunit
-          echo "::add-path::$(composer global config bin-dir --absolute)"
+        run: composer install --no-ansi
+#      - name: Install PHPUnit
+#        run: |
+#          composer global require --no-ansi --no-dev phpunit/phpunit
+#          echo "::add-path::$(composer global config bin-dir --absolute)"
       - name: Run Tests
         run: composer test
