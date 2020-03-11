@@ -13,7 +13,8 @@ jobs:
 #      matrix:
 #        php: [7.1, 7.2, 7.3, 7.4]
 #    container: php:${{ matrix.php }}-alpine
-    container: docker:stable
+#    container: docker:stable
+    container: php:7.1-alpine
     services:
       mysql:
         image:
@@ -25,7 +26,9 @@ jobs:
           MYSQL_PASSWORD: ci
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
+      - run: apk update && apk add docker mysql-client
       - run: docker ps
+      - run: docker network inspect ${{ job.network }}
 #      - name: Install APK Dependencies
 #        run: apk update && apk add git unzip mysql-client -q
 #      - name: Install PHP Extensions
