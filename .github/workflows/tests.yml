@@ -23,48 +23,48 @@ jobs:
           MYSQL_PASSWORD: ci
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
-      - name: Get Data
-        run: php -i
-#      - name: Install APK Dependencies
-#        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make
-#      - name: Install PHP Extensions
-#        run: docker-php-ext-install pdo_mysql
-#      - name: Install PECL Extensions
-#        run: pear config-set php_ini "$PHP_INI_DIR/php.ini" && pecl install pcov
-#      - name: Install Composer
-#        id: composer-install
-#        run: |
-#          wget -O installer https://getcomposer.org/installer
-#          php installer --install-dir=/usr/local/bin --filename=composer
-#          echo "::set-output name=cache-dir::$(composer global config cache-files-dir)"
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#      - name: Restore Composer Cache
-#        uses: actions/cache@v1
-#        with:
-#          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-#          path: ${{ steps.composer-install.outputs.cache-dir }}
-#          restore-keys: composer-${{ runner.os }}- composer--
-#      - name: Update PHPUnit
-#        run: composer update --no-ansi --with-dependencies phpunit/phpunit
-#      - name: Install Composer Libraries
-#        run: composer install --no-ansi
-#      - name: Run Tests
-#        run: composer test
-#        env:
-#          MYSQL_HOST: mysql
-#          MYSQL_DATABASE: ci
-#          MYSQL_USER: ci
-#          MYSQL_PASSWORD: ci
-#      - name: Find Reports
-#        run: pwd && ls
-#      - name: Upload Coverage
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: Coverage Report (${{ matrix.php }})
-#          path: coverage/
-#      - name: Upload Test Report
-#        uses: actions/upload-artifact@v1
-#        with:
-#          name: Test Report (${{ matrix.php }})
-#          path: test.html
+      - name: Install php.ini
+        run: mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
+      - name: Install APK Dependencies
+        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make
+      - name: Install PHP Extensions
+        run: docker-php-ext-install pdo_mysql
+      - name: Install PECL Extensions
+        run: pear config-set php_ini "$PHP_INI_DIR/php.ini" && pecl install pcov
+      - name: Install Composer
+        id: composer-install
+        run: |
+          wget -O installer https://getcomposer.org/installer
+          php installer --install-dir=/usr/local/bin --filename=composer
+          echo "::set-output name=cache-dir::$(composer global config cache-files-dir)"
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Restore Composer Cache
+        uses: actions/cache@v1
+        with:
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          path: ${{ steps.composer-install.outputs.cache-dir }}
+          restore-keys: composer-${{ runner.os }}- composer--
+      - name: Update PHPUnit
+        run: composer update --no-ansi --with-dependencies phpunit/phpunit
+      - name: Install Composer Libraries
+        run: composer install --no-ansi
+      - name: Run Tests
+        run: composer test
+        env:
+          MYSQL_HOST: mysql
+          MYSQL_DATABASE: ci
+          MYSQL_USER: ci
+          MYSQL_PASSWORD: ci
+      - name: Find Reports
+        run: pwd && ls
+      - name: Upload Coverage
+        uses: actions/upload-artifact@v1
+        with:
+          name: Coverage Report (${{ matrix.php }})
+          path: coverage/
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v1
+        with:
+          name: Test Report (${{ matrix.php }})
+          path: test.html
