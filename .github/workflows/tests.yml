@@ -56,8 +56,6 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Verify MySQL connection
         run: |
-          echo "${{ toJson(job) }}"
-          mysql --host 127.0.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
           mysql --host localhost --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
           mysql --host mysql --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
           ip neigh | awk '{ print $1 }' | xargs -n1 host
