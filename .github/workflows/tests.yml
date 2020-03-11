@@ -12,7 +12,7 @@ jobs:
 #      matrix:
 #        php: [7.1, 7.2, 7.3, 7.4]
 #    container: php:${{ matrix.php }}-alpine
-    container: php:7.1-alpine
+    container: php:7.2-alpine
 #    services:
 #      mysql:
 #        image:
