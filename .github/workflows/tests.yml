@@ -54,7 +54,7 @@ jobs:
           version=$(echo "$info" | perl -ne 'print "$&\n" if /(?<=versions : \* )[\d\w.-_]+/s')
           major=$(echo "$version" | perl -ne 'print "$&\n" if /\d/s')
           echo "::set-output name=major::$major"
-      - name: Run Legacy POCV Polyfill
+      - name: Install Legacy POCV Polyfill
         run: composer pcov-polyfill
         if: steps.phpunit-check.outputs.major < 8
       - name: Run Tests
