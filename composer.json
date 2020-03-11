@@ -9,7 +9,7 @@
 	}],
 
 	"scripts": {
-		"test": "phpunit --bootstrap vendor/autoload.php tests"
+		"test": "phpunit --debug -vvv --bootstrap vendor/autoload.php --colors=never --whitelist src/ tests"
 	},
 
 	"require": {
