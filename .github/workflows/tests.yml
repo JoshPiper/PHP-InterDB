@@ -46,7 +46,7 @@ jobs:
       - name: Install Composer Libraries
         run: composer install --no-ansi
       - name: Run Tests
-        run: composer test --coverage-html coverage --testdox-html test.html
+        run: composer test
         env:
           MYSQL_HOST: mysql
           MYSQL_DATABASE: ci
