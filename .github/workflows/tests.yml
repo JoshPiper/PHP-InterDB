@@ -32,4 +32,7 @@ jobs:
           wget -O installer https://getcomposer.org/installer
           php installer --install-dir=/usr/local/bin --filename=composer
       - name: Install Composer Libraries
-        run: composer install --no-ansi
+        run: |
+          pwd
+          ls
+          composer install --no-ansi
