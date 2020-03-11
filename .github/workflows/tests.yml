@@ -40,26 +40,26 @@ jobs:
           wget -O installer https://getcomposer.org/installer
           php installer --install-dir=/usr/local/bin --filename=composer
           echo "::set-output name=cache-dir::$(composer global config cache-files-dir)"
+      - name: Checkout
+        uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - name: Restore Composer Cache
+        uses: actions/cache@v1
+        with:
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          path: ${{ steps.composer-install.outputs.cache-dir }}
+          restore-keys: composer-${{ runner.os }}- composer--
+      - name: Update PHPUnit
+        run: composer update --no-ansi --with-dependencies phpunit/phpunit
+      - name: Install Composer Libraries
+        run: composer install --no-ansi
       - run: docker ps
       - run: docker network inspect ${{ job.container.network }}
       - run: ping -c4 mysql
       - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
 
-#
-#      - name: Checkout
-#        uses: actions/checkout@v1
-#        with:
-#          fetch-depth: 1
-#      - name: Restore Composer Cache
-#        uses: actions/cache@v1
-#        with:
-#          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-#          path: ${{ steps.composer-install.outputs.cache-dir }}
-#          restore-keys: composer-${{ runner.os }}- composer--
-#      - name: Update PHPUnit
-#        run: composer update --no-ansi --with-dependencies phpunit/phpunit
-#      - name: Install Composer Libraries
-#        run: composer install --no-ansi
+
 #
 #      - name: Verify MySQL connection
 #        run: |
