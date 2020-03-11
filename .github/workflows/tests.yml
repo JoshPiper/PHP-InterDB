@@ -38,5 +38,9 @@ jobs:
         run: composer update --no-ansi --with-dependencies phpunit/phpunit
       - name: Install Composer Libraries
         run: composer install --no-ansi
-      - name: Run Tests
-        run: composer test
+      - name: Dump job context
+        env:
+          JOB_CONTEXT: ${{ toJson(job) }}
+        run: echo "$JOB_CONTEXT"
+#      - name: Run Tests
+#        run: composer test
