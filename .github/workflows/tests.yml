@@ -49,15 +49,15 @@ jobs:
       - name: Check PHPUnit Version
         id: phpunit-check
         run: |
-          info = $(composer show phpunit/phpunit)
+          info=$(composer show phpunit/phpunit)
           echo "$info"
-          versions = $(echo "$info" | grep "versions : .*$")
+          versions=$(echo "$info" | grep "versions : .*$")
           echo "$versions"
-          major = $(echo "$versions" | grep "\d+")
+          major=$(echo "$versions" | grep "\d+")
           echo "$major"
-          minor = $(echo "$versions" | grep "\d+")
+          minor=$(echo "$versions" | grep "\d+")
           echo "$minor"
-          patch = $(echo "$versions" | grep "\d+")
+          patch=$(echo "$versions" | grep "\d+")
           echo "$patch"
 
 #          echo "::set-output name=major::$(composer show phpunit/phpunit | grep "versions" | grep "\d+")"
