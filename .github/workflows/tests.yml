@@ -53,10 +53,10 @@ jobs:
           MYSQL_USER: ci
           MYSQL_PASSWORD: ci
       - name: Upload Coverage
-          uses: actions/upload-artifact@v1
-          with:
-            name: Coverage Report (${{ matrix.php }})
-            path: coverage/
+        uses: actions/upload-artifact@v1
+        with:
+          name: Coverage Report (${{ matrix.php }})
+          path: coverage/
       - name: Upload Test Report
         uses: actions/upload-artifact@v1
         with:
