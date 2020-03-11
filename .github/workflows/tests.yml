@@ -65,3 +65,5 @@ jobs:
           MYSQL_USER: ci
           MYSQL_PASSWORD: ci
           MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
+      - name: Get MySQL logs
+        run: docker logs "${{ job.services.mysql.id }}"
