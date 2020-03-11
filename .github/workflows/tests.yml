@@ -61,6 +61,7 @@ jobs:
       - name: Run Tests
         run: composer test
         env:
+          MYSQL_HOST: mysql
           MYSQL_DATABASE: ci
           MYSQL_USER: ci
           MYSQL_PASSWORD: ci
