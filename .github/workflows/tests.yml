@@ -56,8 +56,7 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Verify MySQL connection
         run: |
-          mysql --host ${{ job.services.mysql.id }} --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
-          ip neigh | awk '{ print $1 }' | xargs -n1 host
+          ip neigh | awk '{ print $1 }' | xargs -n1 nslookup
       - name: Wait for MySQL
         run: chmod +x ./await-ready.sh && ./await-ready.sh
         env:
