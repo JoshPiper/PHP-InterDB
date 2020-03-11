@@ -58,26 +58,9 @@ jobs:
       - run: docker network inspect ${{ job.container.network }}
       - run: ping -c4 mysql
       - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
-
-
-#
-#      - name: Verify MySQL connection
-#        run: |
-#          ip neigh
-#          cat /etc/hosts
-#          mysql --host 172.18.0.1 -uroot -pci -e "SHOW DATABASES"
-#          mysql --host mysql -uroot -pci -e "SHOW DATABASES"
-#      - name: Wait for MySQL
-#        run: chmod +x ./await-ready.sh && ./await-ready.sh
-#        env:
-#          MYSQL_PASSWORD: ci
-#          MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
-#      - name: Run Tests
-#        run: composer test
-#        env:
-#          MYSQL_DATABASE: ci
-#          MYSQL_USER: ci
-#          MYSQL_PASSWORD: ci
-#          MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
-#      - name: Get MySQL logs
-#        run: docker logs "${{ job.services.mysql.id }}"
+      - name: Run Tests
+        run: composer test
+        env:
+          MYSQL_DATABASE: ci
+          MYSQL_USER: ci
+          MYSQL_PASSWORD: ci
