@@ -40,6 +40,5 @@ jobs:
         run: |
           composer global require --no-ansi --no-dev phpunit/phpunit
           echo "::add-path::$(composer global config bin-dir --absolute)"
-#        if: matrix.php
       - name: Run Tests
         run: composer test
