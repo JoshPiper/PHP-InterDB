@@ -1,6 +1,6 @@
 {
 	"name": "internet/interdb",
-	"description": "A small library for handling PDO DB connections.",
+	"description": "A PDO based DB abstraction layer.",
 	"license": "MIT",
 	"authors": [{
 		"name": "John Internet",
