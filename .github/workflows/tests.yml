@@ -57,6 +57,8 @@ jobs:
       - name: Verify MySQL connection
         run: |
           ip neigh | awk '{ print $1 }' | xargs -n1 nslookup
+          mysql --host 172.18.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
+          mysql --host 172.18.0.1 --port 3306 -uroot -pci -e "SHOW DATABASES"
       - name: Wait for MySQL
         run: chmod +x ./await-ready.sh && ./await-ready.sh
         env:
