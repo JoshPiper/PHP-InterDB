@@ -8,6 +8,10 @@
 		"role": "Developer"
 	}],
 
+	"scripts": {
+		"test": "phpunit --bootstrap vendor/autoload.php tests"
+	},
+
 	"require": {
 		"ext-pdo": "*",
 		"internet/intervalid": "^1.0",
