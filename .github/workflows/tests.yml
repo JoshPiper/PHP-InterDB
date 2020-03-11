@@ -50,7 +50,7 @@ jobs:
         id: phpunit-check
         run: |
           info=$(composer show phpunit/phpunit)
-          versions=$(echo "$info" | grep "versions : .*$")
+          versions=$(echo "$info" | grep -o "versions : \* (.*)$")
           echo "$versions"
 #          major=$(echo "$versions" | grep "\d+")
 #          echo "$major"
