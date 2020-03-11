@@ -31,7 +31,7 @@ jobs:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
       - name: Install APK Dependencies
-        run: apk update && apk add -q git unzip mysql-client docker
+        run: apk update && apk add -q git unzip mysql-client
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
       - name: Install Composer
@@ -54,10 +54,10 @@ jobs:
         run: composer update --no-ansi --with-dependencies phpunit/phpunit
       - name: Install Composer Libraries
         run: composer install --no-ansi
-      - run: docker ps
-      - run: docker network inspect ${{ job.container.network }}
-      - run: ping -c4 mysql
-      - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
+#      - run: docker ps
+#      - run: docker network inspect ${{ job.container.network }}
+#      - run: ping -c4 mysql
+#      - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
       - name: Run Tests
         run: composer test
         env:
