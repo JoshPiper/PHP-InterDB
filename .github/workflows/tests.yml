@@ -54,7 +54,8 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Verify MySQL connection
         run: |
-          ip neigh | awk '{ print $1 }' | xargs -n1 nslookup
+          ip neigh
+          cat /etc/hosts
           mysql --host 172.18.0.1 -uroot -pci -e "SHOW DATABASES"
           mysql --host mysql -uroot -pci -e "SHOW DATABASES"
       - name: Wait for MySQL
