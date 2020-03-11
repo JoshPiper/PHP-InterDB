@@ -26,7 +26,7 @@ jobs:
       - name: Install APK Dependencies
         run: apk update && apk add -q git unzip mysql-client
       - name: Install PHP Extensions
-        run: docker-php-ext-install pdo_mysql
+        run: docker-php-ext-install pdo_mysql pcov
       - name: Install Composer
         id: composer-install
         run: |
