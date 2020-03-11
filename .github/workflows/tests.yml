@@ -1,13 +1,6 @@
 name: Unit Testing
 on: push
 
-env:
-  COMPOSER_ALLOW_SUPERUSER: 1
-  MYSQL_ROOT_PASSWORD: ci
-  MYSQL_DATABASE: ci
-  MYSQL_USER: ci
-  MYSQL_PASSWORD: ci
-
 jobs:
   phpunit:
     runs-on: ubuntu-latest
@@ -21,6 +14,13 @@ jobs:
       mysql:
         image:
           mysql:5.6
+        env:
+          MYSQL_ROOT_PASSWORD: ci
+          MYSQL_DATABASE: ci
+          MYSQL_USER: ci
+          MYSQL_PASSWORD: ci
+        ports:
+          - 3306
     steps:
       - name: Install APK Dependencies
         run: apk update && apk add git unzip mysql-client -q
@@ -50,5 +50,15 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
-#      - name: Run Tests
-#        run: composer test
+      - name: Wait for MySQL
+        run: chmod +x ./await-ready.sh && ./await-ready.sh
+        env:
+          MYSQL_ROOT_PASSWORD: ci
+          MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
+      - name: Run Tests
+        run: composer test
+        env:
+          MYSQL_DATABASE: ci
+          MYSQL_USER: ci
+          MYSQL_PASSWORD: ci
+          MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
