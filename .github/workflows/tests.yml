@@ -48,7 +48,19 @@ jobs:
         run: composer update --no-ansi --with-dependencies phpunit/phpunit
       - name: Check PHPUnit Version
         id: phpunit-check
-        run: echo "::set-output name=major::$(composer show phpunit/phpunit | grep "versions" | grep "\d+")"
+        run: |
+          info = $(composer show phpunit/phpunit)
+          echo "$info"
+          versions = $(echo "$info" | grep "versions : .*$")
+          echo "$versions"
+          major = $(echo "$versions" | grep "\d+")
+          echo "$major"
+          minor = $(echo "$versions" | grep "\d+")
+          echo "$minor"
+          patch = $(echo "$versions" | grep "\d+")
+          echo "$patch"
+
+#          echo "::set-output name=major::$(composer show phpunit/phpunit | grep "versions" | grep "\d+")"
       - name: Run Legacy POCV Polyfill
         run: composer pcov-polyfill
         if: steps.phpunit-check.outputs.major < 8
