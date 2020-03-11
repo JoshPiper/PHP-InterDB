@@ -30,15 +30,15 @@ jobs:
         env:
           JOB_CONTEXT: ${{ toJson(job) }}
         run: echo "$JOB_CONTEXT"
-      - run: apk update && apk add docker mysql-client
+      - name: Install APK Dependencies
+        run: apk update && apk add -q git unzip mysql-client docker
+      - name: Install PHP Extensions
+        run: docker-php-ext-install pdo_mysql
       - run: docker ps
       - run: docker network inspect ${{ job.container.network }}
       - run: ping -c4 mysql
       - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
-#      - name: Install APK Dependencies
-#        run: apk update && apk add git unzip mysql-client -q
-#      - name: Install PHP Extensions
-#        run: docker-php-ext-install pdo_mysql
+
 #      - name: Install Composer
 #        id: composer-install
 #        run: |
