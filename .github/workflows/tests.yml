@@ -24,7 +24,12 @@ jobs:
           MYSQL_PASSWORD: ci
         ports:
           - 3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        options: |
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+          --hostname mysql
     steps:
       - name: Install APK Dependencies
         run: apk update && apk add git unzip mysql-client -q
@@ -58,7 +63,7 @@ jobs:
         run: |
           ip neigh | awk '{ print $1 }' | xargs -n1 nslookup
           mysql --host 172.18.0.1 --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
-          mysql --host 172.18.0.1 --port 3306 -uroot -pci -e "SHOW DATABASES"
+          mysql --host mysql --port ${{ job.services.mysql.ports['3306'] }} -uroot -pci -e "SHOW DATABASES"
       - name: Wait for MySQL
         run: chmod +x ./await-ready.sh && ./await-ready.sh
         env:
