@@ -24,7 +24,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3 --hostname mysql
     steps:
       - name: Install APK Dependencies
-        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++
+        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
       - name: Install PECL Extensions
