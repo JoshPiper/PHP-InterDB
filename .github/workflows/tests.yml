@@ -56,7 +56,7 @@ jobs:
         run: echo "$JOB_CONTEXT"
       - name: Verify MySQL connection
         run: |
-          ip neigh | awk '{ print $1 }' | xargs -n1 host
+          ip neigh | awk '{ print $1 }' | xargs -n1 nslookup
       - name: Wait for MySQL
         run: chmod +x ./await-ready.sh && ./await-ready.sh
         env:
