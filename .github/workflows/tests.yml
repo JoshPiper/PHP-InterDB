@@ -51,15 +51,8 @@ jobs:
         run: |
           info=$(composer show phpunit/phpunit)
           version=$(echo "$info" | perl -ne 'print "$&\n" if /(?<=versions : \* )[\d\w.-_]+/s')
-          echo "$version"
-#          major=$(echo "$versions" | grep "\d+")
-#          echo "$major"
-#          minor=$(echo "$versions" | grep "\d+")
-#          echo "$minor"
-#          patch=$(echo "$versions" | grep "\d+")
-#          echo "$patch"
-
-#          echo "::set-output name=major::$(composer show phpunit/phpunit | grep "versions" | grep "\d+")"
+          major=$(echo "$version" | perl -ne 'print "$&\n" if /\d/s')
+          echo "::set-output name=major::$major"
       - name: Run Legacy POCV Polyfill
         run: composer pcov-polyfill
         if: steps.phpunit-check.outputs.major < 8
