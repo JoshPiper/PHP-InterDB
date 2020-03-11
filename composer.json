@@ -8,6 +8,14 @@
 		"role": "Developer"
 	}],
 
+	"scripts": {
+		"test": "phpunit --debug -vvv --bootstrap vendor/autoload.php --colors=never --whitelist src/ --coverage-html coverage --testdox-html test.html tests",
+		"pcov-polyfill": [
+			"@composer require --dev pcov/clobber",
+			"pcov clobber"
+		]
+	},
+
 	"require": {
 		"ext-pdo": "*",
 		"internet/intervalid": "^1.0",
@@ -21,6 +29,6 @@
 	},
 
 	"require-dev": {
-		"phpunit/phpunit": "^8.4"
+		"phpunit/phpunit": ">=7 <10"
 	}
 }
