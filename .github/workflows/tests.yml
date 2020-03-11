@@ -9,10 +9,15 @@ env:
   MYSQL_PASSWORD: ci
 
 jobs:
-  php7.1:
+  phpunit:
     runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        php: [7.1, 7.2, 7.3, 7.4]
     container:
-      image: php:7.1-alpine
+      image: php:${{ matrix.php }}-alpine
     services:
       mysql:
         image:
