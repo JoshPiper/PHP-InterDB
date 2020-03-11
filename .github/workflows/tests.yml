@@ -56,7 +56,7 @@ jobs:
       - name: Wait for MySQL
         run: chmod +x ./await-ready.sh && ./await-ready.sh
         env:
-          MYSQL_ROOT_PASSWORD: ci
+          MYSQL_PASSWORD: ci
           MYSQL_PORT: ${{ job.services.mysql.ports['3306'] }}
       - name: Run Tests
         run: composer test
