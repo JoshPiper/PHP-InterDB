@@ -26,8 +26,8 @@ jobs:
     steps:
 #      - name: Install php.ini
 #        run: mv "$PHP_INI_DIR/php.ini-production" "$PHP_INI_DIR/php.ini"
-#      - name: Install APK Dependencies
-#        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make
+      - name: Install APK Dependencies
+        run: apk update && apk add --no-cache -q git unzip mysql-client autoconf gcc g++ make perl
       - name: Install PHP Extensions
         run: docker-php-ext-install pdo_mysql
       - name: Install Composer
