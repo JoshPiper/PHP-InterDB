@@ -1,0 +1,28 @@
+name: Unit Testing
+on: push
+
+env:
+  COMPOSER_ALLOW_SUPERUSER: 1
+  MYSQL_ROOT_PASSWORD: ci
+  MYSQL_DATABASE: ci
+  MYSQL_USER: ci
+  MYSQL_PASSWORD: ci
+
+jobs:
+  php7.1:
+    runs-on: ubuntu-latest
+    container:
+      image: php:7.1-alpine
+    services:
+      mysql:
+        image:
+          mysql:5.6
+    steps:
+      - name: Install APK Dependencies
+        run: apk update && apk add git unzip mysql-client -q
+      - name: Install PHP Extensions
+        run: docker-php-ext-install pdo_mysql
+      - name: Install Composer
+        run: wget -O installer https://getcomposer.org/installer && sudo php installer --install-dir=/usr/local/bin
+      - name: Install Composer Libraries
+        run: composer install --no-ansi
