@@ -34,7 +34,7 @@ jobs:
       - run: docker ps
       - run: docker network inspect ${{ job.container.network }}
       - run: ping -c4 mysql
-      - run: mysql --host mysql -uroot -ci -e "SHOW DATABASES"
+      - run: mysql --host mysql -uroot -pci -e "SHOW DATABASES"
 #      - name: Install APK Dependencies
 #        run: apk update && apk add git unzip mysql-client -q
 #      - name: Install PHP Extensions
