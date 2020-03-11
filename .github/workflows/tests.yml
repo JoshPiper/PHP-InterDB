@@ -38,7 +38,7 @@ jobs:
         run: composer install --no-ansi --no-dev
       - name: Install PHPUnit
         run: |
-          composer global require phpunit/phpunit
+          composer global require --no-ansi --no-dev phpunit/phpunit
           echo "::add-path::$(composer global config bin-dir --absolute)"
 #        if: matrix.php
       - name: Run Tests
