@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 error_count=0
 
 while [ $error_count -lt 30 ]
