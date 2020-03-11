@@ -37,10 +37,10 @@ jobs:
         with:
           fetch-depth: 1
       - name: Restore Composer Cache
-          with:
-            key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
-            path: ${{ steps.composer-install.outputs.cache-dir }}
-            restore-keys: composer-${{ runner.os }}- composer--
+        with:
+          key: composer-${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+          path: ${{ steps.composer-install.outputs.cache-dir }}
+          restore-keys: composer-${{ runner.os }}- composer--
       - name: Update PHPUnit
         run: composer update --no-ansi --with-dependencies phpunit/phpunit
       - name: Install Composer Libraries
