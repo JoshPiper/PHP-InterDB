@@ -1,6 +1,9 @@
 name: Unit Testing
 on: push
 
+env:
+  COMPOSER_ALLOW_SUPERUSER: 1
+
 jobs:
   phpunit:
     runs-on: ubuntu-latest
